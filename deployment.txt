@@ -1,5 +1,0 @@
-mongoDB:
-user: kilonow1275
-password: qGYp8NoGJtb4NxBA
-connectionString: 
-mongodb+srv://kilonow1275:qGYp8NoGJtb4NxBA@spotfinderuserscluster.yhl0wgn.mongodb.net/?retryWrites=true&w=majority

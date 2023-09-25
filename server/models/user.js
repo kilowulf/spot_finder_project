@@ -10,7 +10,7 @@ const userSchema = new Schema({
   displayname: String,
   provider: String,
   profileUrl: String,
-  photos: [{ value: String }],
+  avatarImgUrl: String,
   credits: { type: Number, default: 0 }
 });
 

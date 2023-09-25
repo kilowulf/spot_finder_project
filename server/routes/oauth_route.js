@@ -21,8 +21,10 @@ module.exports = app => {
 
   // log-out route
   app.get("/api/logout", (req, res) => {
+    // passport function attached to req object to destroy cookie session
     req.logout();
-    res.redirect("/");
+    res.send(req.user);
+    // res.redirect("/");
   });
 
   app.get("/api/current_user", (req, res) => {

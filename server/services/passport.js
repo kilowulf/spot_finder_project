@@ -3,12 +3,15 @@ const GitHubStrategy = require("passport-github2").Strategy;
 const mongoose = require("mongoose");
 const User = mongoose.model("users");
 
+// pull mongoDB _id to be used in session authentication
 passport.serializeUser((user, done) => {
   // user.id is the mongo id
   // use mongo id since users may have multiple provider id's
+  console.log(user.id);
   done(null, user.id);
 });
 
+// prior authentication allows passport to fetch full object by id
 passport.deserializeUser((id, done) => {
   User.findById(id).then(user => {
     done(null, user);
@@ -43,9 +46,10 @@ passport.use(
           username: profile.username,
           displayname: profile.displayName,
           profileUrl: profile.profileUrl,
-          photo: [{ value: profile.photos[0].value }],
+          avatarImgUrl: profile._json.avatar_url,
           provider: profile.provider
         }).save(); // save record
+
         done(null, user); // second user instance from callback
       }
     }

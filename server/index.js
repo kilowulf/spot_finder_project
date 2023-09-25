@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 
 // ensure proper order of operations with these imports
-require("./models/user");
+require("./models/User");
 require("./services/passport");
 
 // connect to mongoDB
@@ -42,12 +42,15 @@ app.use(
 );
 
 // set passport to use cookies
+// create passport instance on req object
 app.use(passport.initialize());
+// check for user object, passes to deserializeUser to retrieve full user object
 app.use(passport.session());
 
 // calling function from auth_routes.js and passing app as argument
 require("./routes/oauth_route")(app);
 
+//
 app.get(
   "/auth/github",
   passport.authenticate("github", { scope: ["user:email"] })

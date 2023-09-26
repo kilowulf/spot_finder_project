@@ -58,9 +58,9 @@ app.get(
 
 app.get("/auth/github/callback", passport.authenticate("github"));
 
-app.get("/", (req, res) => {
-  res.send({ hey: "hello world" });
-});
+// app.get("/", (req, res) => {
+//   res.send({ hey: "hello world" });
+// });
 
 const PORT = process.env.PORT || 5000;
 

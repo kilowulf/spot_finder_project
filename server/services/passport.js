@@ -23,7 +23,8 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: "/auth/github/callback"
+      callbackURL: "/auth/github/callback",
+      proxy: true // trust third party proxy
     },
     async (accessToken, refreshToken, profile, done) => {
       console.log(accessToken);
@@ -37,21 +38,20 @@ passport.use(
       // check if user exists
       if (existingUser) {
         // user has record
-        done(null, existingUser);
-      } else {
-        // user doesn't exist , need to generate record
-        // save github profile id data in mongo user collection
-        const user = await new User({
-          githubId: profile.id,
-          username: profile.username,
-          displayname: profile.displayName,
-          profileUrl: profile.profileUrl,
-          avatarImgUrl: profile._json.avatar_url,
-          provider: profile.provider
-        }).save(); // save record
-
-        done(null, user); // second user instance from callback
+        return done(null, existingUser);
       }
+      // user doesn't exist , need to generate record
+      // save github profile id data in mongo user collection
+      const user = await new User({
+        githubId: profile.id,
+        username: profile.username,
+        displayname: profile.displayName,
+        profileUrl: profile.profileUrl,
+        avatarImgUrl: profile._json.avatar_url,
+        provider: profile.provider
+      }).save(); // save record
+
+      done(null, user); // second user instance from callback
     }
   )
 );

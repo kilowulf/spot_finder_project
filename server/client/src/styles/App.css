@@ -1,0 +1,14 @@
+/* src/styles/App.css */
+
+.custom-navbar {
+  background-color: rgba(84, 125, 246, 0.956);
+}
+
+.navbar-light .navbar-brand,
+.navbar-light .nav-link {
+  color: white; /* This makes the text white */
+}
+
+.navbar-light .nav-link:hover {
+  color: rgba(255, 255, 255, 0.8); /* Slightly lighter color on hover */
+}

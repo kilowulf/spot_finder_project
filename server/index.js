@@ -50,13 +50,21 @@ app.use(passport.session());
 // calling function from auth_routes.js and passing app as argument
 require("./routes/oauth_route")(app);
 
-//
-app.get(
-  "/auth/github",
-  passport.authenticate("github", { scope: ["user:email"] })
-);
+// Ensure production assets are served when hosted
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  // Express serves index.html file if it doesn't recognize route
+  const path = require("path");
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
+// app.get(
+//   "/auth/github",
+//   passport.authenticate("github", { scope: ["user:email"] })
+// );
 
-app.get("/auth/github/callback", passport.authenticate("github"));
+// app.get("/auth/github/callback", passport.authenticate("github"));
 
 // app.get("/", (req, res) => {
 //   res.send({ hey: "hello world" });

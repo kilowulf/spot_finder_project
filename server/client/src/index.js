@@ -1,8 +1,8 @@
 // Data layer control: Redux - state management
 
 // import css
-// import "./index.css";
 import "./styles/App.css";
+
 // Data layer control: boot up, Redux service
 import React from "react";
 import ReactDOM from "react-dom";

@@ -1,6 +1,6 @@
 /* General styling for the navbar background */
 .custom-navbar {
-  background-color: rgba(120, 148, 233, 0.956); /* light blue */
+  background-color: rgba(50, 51, 56, 0.956); /* light blue */
   border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* subtle bottom border */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* subtle shadow to give depth */
 }
@@ -8,6 +8,11 @@
 /* White text for the navbar brand and links */
 .navbar-light .navbar-brand,
 .navbar-light .nav-link {
+  color: white;
+}
+
+.navbar-light .nav-link:visited {
+  /* Add :visited to ensure visited links are white too */
   color: white;
 }
 
@@ -25,6 +30,14 @@
     255,
     0.2
   ); /* slight white background to highlight active state */
+}
+
+/* Profile Component styling */
+.profile-container {
+  width: 100%;
+  box-sizing: border-box; /* This makes sure padding and borders don't increase the total width */
+  padding: 0;
+  margin: 0;
 }
 
 /* GitHub uses rounded edges for buttons */

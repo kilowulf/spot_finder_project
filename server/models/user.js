@@ -11,7 +11,10 @@ const userSchema = new Schema({
   provider: String,
   profileUrl: String,
   avatarImgUrl: String,
-  credits: { type: Number, default: 0 }
+  languages: { type: [String], default: [] },
+  frameworks: { type: [String], default: [] },
+  projectsTracked: { type: [String], default: [] },
+  experienceLevel: String
 });
 
 mongoose.model("users", userSchema);

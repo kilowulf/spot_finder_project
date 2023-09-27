@@ -19,7 +19,7 @@ class Header extends Component {
         return [
           // Changed key 1 content to show something since it was empty.
           <li className="nav-item" key="1">
-            User Profile
+            {/* User Profile */}
           </li>,
           <li className="nav-item" key="2">
             <a className="nav-link" href="/api/logout">
@@ -32,7 +32,7 @@ class Header extends Component {
 
   render() {
     return (
-      <nav className="navbar custom-navbar navbar-expand-lg navbar-light custom-navbar">
+      <nav className="navbar custom-navbar navbar-expand-lg navbar-light">
         <div className="container">
           {" "}{/* Added container for center alignment */}
           <Link
@@ -41,7 +41,7 @@ class Header extends Component {
           >
             SpotFinder
           </Link>
-          <ul className="navbar-nav ml-auto">
+          <ul className="navbar-nav ml-auto navbar-light">
             {" "}{/* ml-auto to push content to the right */}
             {this.renderContent()}
           </ul>

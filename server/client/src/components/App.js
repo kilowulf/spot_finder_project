@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Header from "./Header";
 import Landing from "./Landing";
+import Profile from "./Profile";
 // connect allows components to call action creators
 import { connect } from "react-redux";
 // import action creators
@@ -18,18 +19,18 @@ class App extends Component {
     this.props.fetchUser();
   }
   render() {
-    return (
-      <div className="container">
+    return <div className="container">
         <BrowserRouter>
           <div>
             <Header />
             <Route exact path="/" component={Landing} />
+            <Route path="/profile" component={Profile} />
+
             <Route exact path="/surveys" component={Dashboard} />
             <Route path="/surveys/new" component={SurveyNew} />
           </div>
         </BrowserRouter>
-      </div>
-    );
+      </div>;
   }
 }
 

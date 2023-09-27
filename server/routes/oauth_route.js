@@ -15,7 +15,7 @@ module.exports = app => {
     passport.authenticate("github"),
     (req, res) => {
       // Successful authentication, redirect home.
-      res.redirect("/");
+      res.redirect("/profile");
     }
   );
 

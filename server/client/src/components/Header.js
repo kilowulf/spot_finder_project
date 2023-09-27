@@ -32,7 +32,7 @@ class Header extends Component {
 
   render() {
     return (
-      <nav className="navbar custom-navbar">
+      <nav className="navbar custom-navbar navbar-expand-lg navbar-light custom-navbar">
         <div className="container">
           {" "}{/* Added container for center alignment */}
           <Link

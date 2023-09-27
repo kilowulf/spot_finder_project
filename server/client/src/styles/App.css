@@ -26,3 +26,14 @@
     0.2
   ); /* slight white background to highlight active state */
 }
+
+/* GitHub uses rounded edges for buttons */
+.btn {
+  border-radius: 6px;
+  background-color: #2ea44f; /* Green color for primary actions */
+  color: white;
+}
+
+.btn:hover {
+  background-color: #2a8f47;
+}

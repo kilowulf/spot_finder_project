@@ -27,10 +27,10 @@ passport.use(
       proxy: true // trust third party proxy
     },
     async (accessToken, refreshToken, profile, done) => {
-      console.log(accessToken);
-      console.log(refreshToken);
-      console.log(profile);
-      console.log(profile.photos[0].value);
+      // console.log(accessToken);
+      // console.log(refreshToken);
+      // console.log(profile);
+      // console.log(profile.photos[0].value);
       // Query user collection for github id
       const existingUser = await User.findOne({
         githubId: profile.id

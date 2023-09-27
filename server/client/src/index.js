@@ -5,7 +5,7 @@
 import "./styles/App.css";
 // Data layer control: boot up, Redux service
 import React from "react";
-import ReactDOM from "react-dom/client";
+import ReactDOM from "react-dom";
 // import redux services
 // React component that can read changes to state / store. changes will cascade to children components
 import { Provider } from "react-redux";

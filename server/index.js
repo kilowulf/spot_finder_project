@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 
 // ensure proper order of operations with these imports
-require("./models/User");
+require("./models/user");
 require("./services/passport");
 
 // connect to mongoDB

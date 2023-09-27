@@ -59,16 +59,6 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
-// app.get(
-//   "/auth/github",
-//   passport.authenticate("github", { scope: ["user:email"] })
-// );
-
-// app.get("/auth/github/callback", passport.authenticate("github"));
-
-// app.get("/", (req, res) => {
-//   res.send({ hey: "hello world" });
-// });
 
 const PORT = process.env.PORT || 5000;
 

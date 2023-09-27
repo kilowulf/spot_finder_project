@@ -12,8 +12,8 @@ module.exports = app => {
   // route for auth/google/callback: after authentication has taken place by google
   app.get(
     "/auth/github/callback",
-    passport.authenticate("github", { failureRedirect: "/login" }),
-    function(req, res) {
+    passport.authenticate("github"),
+    (req, res) => {
       // Successful authentication, redirect home.
       res.redirect("/");
     }

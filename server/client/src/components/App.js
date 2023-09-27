@@ -7,7 +7,7 @@ import Landing from "./Landing";
 import { connect } from "react-redux";
 // import action creators
 import * as actions from "../actions";
-import "../styles/App.css";
+
 
 const Dashboard = () => <h2>Dashboard</h2>;
 const SurveyNew = () => <h2>SurveyNew</h2>;

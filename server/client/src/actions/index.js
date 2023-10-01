@@ -11,7 +11,7 @@
    redux store then sends updated state to react components * 
  * **/
 import axios from "axios";
-import { FETCH_USER } from "./types";
+import { FETCH_USER, UPDATE_USER_PREFERENCES } from "./types";
 
 export const fetchUser = () => async dispatch => {
   // res = return updated user instance
@@ -19,8 +19,16 @@ export const fetchUser = () => async dispatch => {
   dispatch({ type: FETCH_USER, payload: res.data });
 };
 
-// action creator: handles token transfer
-export const handleToken = token => async dispatch => {
-  const res = await axios.post("/api/stripe", token);
-  dispatch({ type: FETCH_USER, payload: res.data });
+export const updateUserPreferences = preferences => async dispatch => {
+  try {
+    // Update the user preferences on the server using a PUT request
+    const res = await axios.put("/api/update_user_preferences", preferences);
+
+    // If update successful, dispatch the action to update the Redux store.
+    if (res.status === 200) {
+      dispatch({ type: UPDATE_USER_PREFERENCES, payload: preferences });
+    }
+  } catch (error) {
+    console.error("Error updating user preferences:", error);
+  }
 };

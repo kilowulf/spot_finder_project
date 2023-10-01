@@ -17,9 +17,15 @@ class Header extends Component {
         );
       default:
         return [
-          // Changed key 1 content to show something since it was empty.
-          <li className="nav-item" key="1">
-            {/* User Profile */}
+          <li className="nav-item d-flex align-items-center" key="1">
+            <img
+              src={this.props.auth.avatarImgUrl}
+              alt={this.props.auth.username}
+              className="user-profile-image"
+            />
+            <Link to="/profile" className="nav-link">
+              {this.props.auth.username}
+            </Link>
           </li>,
           <li className="nav-item" key="2">
             <a className="nav-link" href="/api/logout">
@@ -30,23 +36,48 @@ class Header extends Component {
     }
   }
 
-  render() {
+  renderSubNavbar() {
     return (
-      <nav className="navbar custom-navbar navbar-expand-lg navbar-light">
+      <nav className="navbar sub-navbar navbar-expand-lg navbar-light">
         <div className="container">
-          {" "}{/* Added container for center alignment */}
-          <Link
-            to={this.props.auth ? "/surveys" : "/"}
-            className="navbar-brand"
-          >
-            SpotFinder
-          </Link>
-          <ul className="navbar-nav ml-auto navbar-light">
-            {" "}{/* ml-auto to push content to the right */}
-            {this.renderContent()}
+          <ul className="navbar-nav ml-auto">
+            <li className="nav-item">
+              <Link to="/searchpage" className="nav-link">
+                Search Projects
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/someRoute2" className="nav-link">
+                Glossary
+              </Link>
+            </li>
+            {/* Add more links as needed */}
           </ul>
         </div>
       </nav>
+    );
+  }
+
+  render() {
+    return (
+      <div>
+        <nav className="navbar custom-navbar navbar-expand-lg navbar-light">
+          <div className="container">
+            {" "}{/* Added container for center alignment */}
+            <Link
+              to={this.props.auth ? "/surveys" : "/"}
+              className="navbar-brand"
+            >
+              SpotFinder
+            </Link>
+            <ul className="navbar-nav ml-auto navbar-light">
+              {" "}{/* ml-auto to push content to the right */}
+              {this.renderContent()}
+            </ul>
+          </div>
+        </nav>
+        {this.renderSubNavbar()}
+      </div>
     );
   }
 }

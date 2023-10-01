@@ -1,10 +1,57 @@
-import react from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Landing = () => {
   return (
-    <div style={{ textAlign: "center" }}>
-      <h1>SpotFinder</h1>
-      Find your spot in the open source world!
+    <div className="landing-container">
+      <div className="landing-page">
+        {/* Header */}
+        <div className="landing-header">
+          <h1>SpotFinder</h1>
+          <p>Find your spot in the open source world!</p>
+        </div>
+
+        {/* Wiki Section */}
+        <section className="landing-wiki">
+          <h2>Open Source Glossary</h2>
+          <p>
+            Dive into the common terms, tags, and parlance in open source
+            projects hosted on GitHub. <Link to="/wiki">Explore our Wiki</Link>
+          </p>
+        </section>
+
+        {/* Search Section */}
+        <section className="landing-search">
+          <h2>Find a Project</h2>
+          <p>
+            Ready to jump into the action?{" "}
+            <Link to="/search">Search for projects</Link> that match your
+            interest and skills.
+          </p>
+        </section>
+
+        {/* Signup / Profile Creation */}
+        <section className="landing-signup">
+          <h2>Join the Community</h2>
+          <p>
+            Start your journey with SpotFinder.{" "}
+            <Link to="/signup">Sign up now</Link> or{" "}
+            <Link to="/profile/create">create your profile</Link>.
+          </p>
+        </section>
+
+        {/* Description Section */}
+        <section className="landing-description">
+          <h2>About SpotFinder</h2>
+          <p>
+            SpotFinder is your springboard to the world of open source on
+            GitHub. Whether you're a newbie looking to dip your toes or an
+            experienced developer aiming to contribute, we guide you to
+            understand the standards, expectations, and processes of finding and
+            collaborating on GitHub open source projects.
+          </p>
+        </section>
+      </div>
     </div>
   );
 };

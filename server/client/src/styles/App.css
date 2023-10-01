@@ -11,6 +11,10 @@
   color: white;
 }
 
+.nav-brand:visited {
+  color: white;
+}
+
 .navbar-light .nav-link:visited {
   /* Add :visited to ensure visited links are white too */
   color: white;
@@ -32,12 +36,218 @@
   ); /* slight white background to highlight active state */
 }
 
+/* Header Component: profile link /img*/
+.user-profile-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.nav-item-profile {
+  display: flex;
+  align-items: center;
+}
+
+.sub-navbar {
+  background-color: white;
+  color: #333; /* light grey */
+  margin-top: 4px; /* add a bit of margin on the top */
+}
+/* Setting base color for .nav-link under .sub-navbar */
+.sub-navbar .nav-link {
+  color: #333;
+}
+
+/* Ensuring visited .nav-link elements under .sub-navbar retain the dark color */
+
+.sub-navbar .nav-link:visited {
+  color: #333;
+}
+/* Setting hover state for .nav-link under .sub-navbar */
+.sub-navbar .nav-link:hover {
+  color: #555; /* Slightly lighter for hover effect */
+}
+
 /* Profile Component styling */
 .profile-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.profile-left,
+.profile-middle,
+.profile-right {
+  flex: 1;
+  margin: 0 20px;
+  /* Add additional styling as needed */
+}
+
+/*Profile Component:: user-preferences section:*/
+.user-preferences {
+  border: 1px solid #e1e4e8; /* Light gray border color used in GitHub */
+  border-radius: 6px; /* Slightly rounded corners */
+  padding: 16px; /* Some padding inside the container */
+  margin-top: 20px; /* Space from the content above it */
+}
+
+.user-preferences-header {
+  font-size: 20px;
+  margin-bottom: 16px; /* Space below the header */
+  font-weight: 600; /* Making it slightly bold */
+}
+
+/* Landing Component Styling*/
+/* General Styles */
+.landing-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70vh; /* This ensures the container takes the full height of the viewport */
+}
+
+.landing-page {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  color: #24292e;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.landing-page a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+.landing-page a:hover {
+  text-decoration: underline;
+}
+
+/* Header */
+.landing-header {
+  text-align: center;
+  margin-bottom: 40px;
   width: 100%;
-  box-sizing: border-box; /* This makes sure padding and borders don't increase the total width */
+}
+
+.landing-header h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+/* Sections */
+.landing-description,
+.landing-resources,
+.landing-wiki,
+.landing-search,
+.landing-signup {
+  border: 1px solid #e1e4e8;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.landing-resources ul {
+  list-style-type: none;
   padding: 0;
-  margin: 0;
+}
+
+.landing-resources li {
+  margin-bottom: 10px;
+}
+
+/*SearchPage Component styling*/
+/* Additional SearchPage styling */
+
+/* Container styling for the search page */
+.search-page {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  color: #24292e;
+  padding: 20px;
+}
+
+/* Styling for the search input box and button */
+.search-page input {
+  padding: 10px;
+  border: 1px solid #e1e4e8;
+  border-radius: 5px;
+  width: 90%;
+  margin-right: 10px;
+}
+
+.search-page button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2ea44f;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-page button:hover {
+  background-color: #2a8f47;
+}
+
+.search-params {
+  border: 1px solid #ccc; /* You can adjust the color and width as needed */
+  padding: 10px; /* Padding to give some space inside the border */
+  border-radius: 5px; /* Optional: to give rounded corners */
+  margin: 10px 0; /* Optional: to give some space above and below the section */
+}
+
+/* Styling for the search parameters section */
+.search-params h4 {
+  margin-top: 20px;
+  margin-bottom: 35px;
+}
+
+.search-params div {
+  display: inline-flex;
+
+  flex-direction: row;
+  width: 45%;
+  vertical-align: top;
+  margin-right: 5%;
+}
+.search-params div > div {
+  display: flex;
+  align-items: center; /* Vertical alignment */
+  margin-bottom: 8px;
+}
+
+.search-params div:last-child {
+  margin-right: 0;
+}
+
+.search-params input[type="radio"] {
+  margin-right: 5px;
+}
+
+/* Styling for the search results and recommended projects section */
+.search-results,
+.recommended-projects {
+  border: 1px solid #e1e4e8;
+  border-radius: 5px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.search-results div,
+.recommended-projects div {
+  padding: 10px 0;
+  border-bottom: 1px solid #e1e4e8;
+}
+
+.search-results div:last-child,
+.recommended-projects div:last-child {
+  border-bottom: none;
 }
 
 /* GitHub uses rounded edges for buttons */

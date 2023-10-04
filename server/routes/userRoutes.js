@@ -13,7 +13,7 @@ module.exports = app => {
       // Update the preferences in the user model and save.
       user.languages = req.body.languages || [];
       user.frameworks = req.body.frameworks || [];
-      user.experienceLevel = req.body.experience;
+      user.experienceLevel = req.body.experienceLevel;
 
       await user.save();
       res.status(200).send(user);

@@ -64,10 +64,7 @@ class Header extends Component {
         <nav className="navbar custom-navbar navbar-expand-lg navbar-light">
           <div className="container">
             {" "}{/* Added container for center alignment */}
-            <Link
-              to={this.props.auth ? "/surveys" : "/"}
-              className="navbar-brand"
-            >
+            <Link to={this.props.auth ? "/" : "/"} className="navbar-brand">
               SpotFinder
             </Link>
             <ul className="navbar-nav ml-auto navbar-light">

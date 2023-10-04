@@ -1,7 +1,7 @@
 import { UPDATE_USER_PREFERENCES } from "../actions/types";
 
 const initialState = {
-  experience: "",
+  experienceLevel: "",
   languages: [],
   frameworks: []
 };

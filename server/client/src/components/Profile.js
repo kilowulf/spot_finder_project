@@ -1,12 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchUser, updateUserPreferences } from "../actions";
+import ProfilePrefCard from "./ProfilePrefCard";
 
 class Profile extends Component {
   componentDidMount() {
-    // Dispatch an action to fill the Redux store with user data
-    this.props.fetchUser(); // or whatever action you use to get user data
+    this.props.fetchUser().then(() => {
+      this.setState({
+        experienceLevel: this.props.auth.experienceLevel,
+        languages: this.props.auth.languages || [],
+        frameworks: this.props.auth.frameworks || []
+      });
+    });
   }
+
   /**Component state properties */
   state = {
     isEditingProfile: false,
@@ -22,6 +29,15 @@ class Profile extends Component {
   /**renderProfileDetails:: Functions for handling profile details */
   handleEditProfileToggle = () => {
     const { auth } = this.props;
+
+    this.setState(prevState => {
+      const newEditingState = !prevState.isEditingProfile;
+      return {
+        isEditingProfile: newEditingState,
+        displayname: newEditingState ? auth.displayname : prevState.displayname,
+        username: newEditingState ? auth.username : prevState.username
+      };
+    });
 
     if (!this.state.isEditingProfile) {
       this.setState({
@@ -42,51 +58,19 @@ class Profile extends Component {
     });
   };
 
+  handleSavePreferences = preferences => {
+    // Here you can use the 'updateUserPreferences' action to save preferences.
+    // Assuming updateUserPreferences accepts a preferences object.
+    this.props.updateUserPreferences(preferences);
+  };
+
   /** renderUserPreferences:: Functions for handling user preferences */
-
-  handleEditPreferencesToggle = () => {
-    if (!this.state.isEditingPreferences) {
-      this.setState({
-        experienceLevel: this.props.userPreferences.experience,
-        languages: this.props.userPreferences.languages,
-        frameworks: this.props.userPreferences.frameworks
-      });
-    }
-
-    this.setState(prevState => ({
-      isEditingPreferences: !prevState.isEditingPreferences
-    }));
-  };
-
-  savePreferences = () => {
-    const { experienceLevel, languages, frameworks } = this.state;
-    this.props.updateUserPreferences({
-      experience: experienceLevel,
-      languages: languages,
-      frameworks: frameworks
-    });
-    this.handleEditPreferencesToggle();
-  };
-
-  handlePreferenceChange = event => {
-    const { name, value, type } = event.target;
-    if (type === "checkbox") {
-      const newArray = [...this.state[name]];
-      if (newArray.includes(value)) {
-        const index = newArray.indexOf(value);
-        newArray.splice(index, 1);
-      } else {
-        newArray.push(value);
-      }
-      this.setState({ [name]: newArray });
-    } else {
-      this.setState({ [name]: value });
-    }
-  };
 
   renderProfileDetails() {
     const { auth } = this.props;
     const { isEditingProfile } = this.state;
+
+    if (!auth) return null;
 
     if (isEditingProfile) {
       return (
@@ -117,9 +101,12 @@ class Profile extends Component {
             alt={auth.username}
             style={{ width: "100px", borderRadius: "50%" }}
           />
-          <h4 className="mt-2">
+          <h3 className="mt-2">
             {auth.username}
-          </h4>
+          </h3>
+          <h2 className="mt-2">
+            {auth.bio}
+          </h2>
           <p>
             <strong>GitHub ID:</strong> {auth.githubId}
           </p>
@@ -132,122 +119,6 @@ class Profile extends Component {
             </a>
           </p>
           <button onClick={this.handleEditProfileToggle}>Edit</button>
-        </div>
-      );
-    }
-  }
-
-  renderUserPreferences() {
-    if (this.state.isEditingPreferences) {
-      return (
-        <div className="user-preferences">
-          <div className="user-preferences-header">User Preferences</div>
-
-          <div className="user-preferences-content">
-            <label>
-              User Experience:
-              <select
-                name="experience"
-                value={this.state.experienceLevel}
-                onChange={this.handlePreferenceChange}
-              >
-                <option value="beginner">Beginner (1 year or less)</option>
-                <option value="experienced">
-                  Experienced (1 year to 2 years)
-                </option>
-                <option value="professional">
-                  Professional (3 years or more)
-                </option>
-              </select>
-            </label>
-
-            <div>
-              Languages:
-              <label>
-                <input
-                  type="checkbox"
-                  name="languages"
-                  value="python"
-                  checked={this.state.languages.includes("python")}
-                  onChange={this.handlePreferenceChange}
-                />{" "}
-                Python
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  name="languages"
-                  value="javascript"
-                  checked={this.state.languages.includes("javascript")}
-                  onChange={this.handlePreferenceChange}
-                />{" "}
-                JavaScript
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  name="languages"
-                  value="ruby"
-                  checked={this.state.languages.includes("ruby")}
-                  onChange={this.handlePreferenceChange}
-                />{" "}
-                Ruby
-              </label>
-            </div>
-
-            <div>
-              Frameworks:
-              <label>
-                <input
-                  type="checkbox"
-                  name="frameworks"
-                  value="vue"
-                  checked={this.state.frameworks.includes("vue")}
-                  onChange={this.handlePreferenceChange}
-                />{" "}
-                Vue
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  name="frameworks"
-                  value="react"
-                  checked={this.state.frameworks.includes("react")}
-                  onChange={this.handlePreferenceChange}
-                />{" "}
-                React
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  name="frameworks"
-                  value="angular"
-                  checked={this.state.frameworks.includes("angular")}
-                  onChange={this.handlePreferenceChange}
-                />{" "}
-                Angular
-              </label>
-            </div>
-
-            <button onClick={this.savePreferences}>Save Preferences</button>
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        <div className="user-preferences">
-          <p>
-            User Experience: {this.props.auth.experienceLevel}
-          </p>
-          <p>
-            Languages: {this.props.auth.languages.join(", ")}
-          </p>
-          <p>
-            Frameworks: {this.props.auth.frameworks.join(", ")}
-          </p>
-          <button onClick={this.handleEditPreferencesToggle}>
-            Edit Preferences
-          </button>
         </div>
       );
     }
@@ -272,8 +143,9 @@ class Profile extends Component {
         </div>
 
         {/* Middle: User Preferences */}
-        <div className="profile-middle">
-          {this.renderUserPreferences()}
+        <div className="profile-container">
+          {/* Other components */}
+          <ProfilePrefCard auth={auth} onSave={this.handleSavePreferences} />
         </div>
 
         {/* Right: Tracked Projects */}

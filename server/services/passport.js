@@ -29,7 +29,7 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
       // console.log(accessToken);
       // console.log(refreshToken);
-      // console.log(profile);
+      console.log(profile);
       // console.log(profile.photos[0].value);
       // Query user collection for github id
       const existingUser = await User.findOne({
@@ -48,7 +48,8 @@ passport.use(
         displayname: profile.displayName,
         profileUrl: profile.profileUrl,
         avatarImgUrl: profile._json.avatar_url,
-        provider: profile.provider
+        provider: profile.provider,
+        bio: profile._json.bio
       }).save(); // save record
 
       done(null, user); // second user instance from callback

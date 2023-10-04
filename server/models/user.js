@@ -14,7 +14,8 @@ const userSchema = new Schema({
   languages: { type: [String], default: [] },
   frameworks: { type: [String], default: [] },
   projectsTracked: { type: [String], default: [] },
-  experienceLevel: String
+  experienceLevel: String,
+  bio: String
 });
 
 mongoose.model("users", userSchema);

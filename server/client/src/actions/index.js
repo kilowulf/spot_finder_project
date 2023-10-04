@@ -27,6 +27,7 @@ export const updateUserPreferences = preferences => async dispatch => {
     // If update successful, dispatch the action to update the Redux store.
     if (res.status === 200) {
       dispatch({ type: UPDATE_USER_PREFERENCES, payload: preferences });
+      dispatch(fetchUser());
     }
   } catch (error) {
     console.error("Error updating user preferences:", error);

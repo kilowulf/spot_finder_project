@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logo from "../img/spotfinder_logo_large.jpg";
 
 const Landing = () => {
   return (
@@ -7,6 +8,7 @@ const Landing = () => {
       <div className="landing-page">
         {/* Header */}
         <div className="landing-header">
+          <img src={logo} alt="SpotFinder Logo" className="spotfinder-logo" />
           <h1>SpotFinder</h1>
           <p>Find your spot in the open source world!</p>
         </div>

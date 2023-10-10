@@ -1,3 +1,9 @@
+.spotfinder-logo {
+  width: 3%;
+  height: auto;
+  margin-right: 5px;
+}
+
 /* General styling for the navbar background */
 .custom-navbar {
   background-color: rgba(50, 51, 56, 0.956); /* light blue */
@@ -172,6 +178,20 @@
   padding: 20px;
 }
 
+.search-container {
+  display: flex;
+  align-items: center; /* this ensures vertical alignment of the input and button */
+  width: 100%; /* optional, to take up full available width */
+}
+
+.search-container input {
+  padding: 10px;
+  border: 1px solid #e1e4e8;
+  border-radius: 5px;
+  flex: 1; /* this allows the input to take up available space */
+  margin-right: 10px;
+}
+
 /* Styling for the search input box and button */
 .search-page input {
   padding: 10px;
@@ -189,45 +209,83 @@
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  white-space: nowrap;
 }
 
 .search-page button:hover {
   background-color: #2a8f47;
 }
 
+.search-params-container {
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
 .search-params {
   border: 1px solid #ccc; /* You can adjust the color and width as needed */
   padding: 10px; /* Padding to give some space inside the border */
   border-radius: 5px; /* Optional: to give rounded corners */
-  margin: 10px 0; /* Optional: to give some space above and below the section */
+  margin: 10px 10px; /* Optional: to give some space above and below the section */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.search-params,
+.search-params * {
+  box-sizing: border-box;
 }
 
 /* Styling for the search parameters section */
 .search-params h4 {
+  display: block;
   margin-top: 20px;
-  margin-bottom: 35px;
+  margin-bottom: 45px;
+}
+
+.search-params > div {
+  /* ... existing styles ... */
+  flex: 3; /* Allow it to grow and fill space */
+  flex-direction: row;
+  justify-content: safe;
+  min-width: 200px; /* This ensures that below this width, the item will wrap to the next line */
 }
 
 .search-params div {
-  display: inline-flex;
-
+  display: flex;
   flex-direction: row;
-  width: 45%;
-  vertical-align: top;
-  margin-right: 5%;
 }
 .search-params div > div {
   display: flex;
+  flex-direction: row;
   align-items: center; /* Vertical alignment */
-  margin-bottom: 8px;
+  margin-bottom: 3px;
 }
 
-.search-params div:last-child {
+/* .search-params div:last-child {
   margin-right: 0;
+} */
+
+.search-params input[type="radio"],
+.search-params input[type="checkbox"] {
+  margin-right: 15px;
+  width: auto;
+  margin: 10;
+
+  box-sizing: border-box;
+  transform: scale(1); /* Reset any scaling */
 }
 
-.search-params input[type="radio"] {
-  margin-right: 5px;
+/* Use a media query for smaller screens */
+@media (max-width: 600px) {
+  .search-params > div {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
 }
 
 /* Styling for the search results and recommended projects section */

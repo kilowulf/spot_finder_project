@@ -13,7 +13,7 @@ const userSchema = new Schema({
   avatarImgUrl: String,
   languages: { type: [String], default: [] },
   frameworks: { type: [String], default: [] },
-  projectsTracked: { type: [String], default: [] },
+  projectsTracked: { type: [Object], default: [] },
   experienceLevel: String,
   bio: String
 });

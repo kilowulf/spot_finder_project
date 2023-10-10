@@ -5,11 +5,11 @@ import Header from "./Header";
 import Landing from "./Landing";
 import Profile from "./Profile";
 import SearchPage from "./SearchPage";
+import ProjectDetailsCard from "./ProjectDetailsCard";
 // connect allows components to call action creators
 import { connect } from "react-redux";
 // import action creators
 import * as actions from "../actions";
-
 
 const Dashboard = () => <h2>Dashboard</h2>;
 const SurveyNew = () => <h2>SurveyNew</h2>;
@@ -20,7 +20,8 @@ class App extends Component {
     this.props.fetchUser();
   }
   render() {
-    return <div className="container">
+    return (
+      <div className="container">
         <BrowserRouter>
           <div>
             <Header />
@@ -30,9 +31,11 @@ class App extends Component {
 
             <Route exact path="/surveys" component={Dashboard} />
             <Route path="/surveys/new" component={SurveyNew} />
+            <Route path="/project/:projectId" component={ProjectDetailsCard} />
           </div>
         </BrowserRouter>
-      </div>;
+      </div>
+    );
   }
 }
 

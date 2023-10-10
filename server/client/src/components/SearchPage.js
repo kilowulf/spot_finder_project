@@ -1,22 +1,57 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { connect } from "react-redux";
+import { searchProjects } from "../actions";
+import { constructSearchTerm } from "../utils/constructSearchQuery";
+import ProjectCard from "./ProjectCard";
 
-const SearchPage = ({ auth }) => {
+const SearchPage = ({ auth, searchProjects, searchResults }) => {
+  // state setting
   const [searchTerm, setSearchTerm] = useState("");
   const [languages, setLanguages] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState(null);
   const [frameworks, setFrameworks] = useState([]);
   const [selectedFramework, setSelectedFramework] = useState(null);
-  const [searchResults, setSearchResults] = useState([]);
   const [recommendedProjects, setRecommendedProjects] = useState([]);
+  const [selectedIssueLabels, setSelectedIssueLabels] = useState([]);
+  const [sortField, setSortField] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc"); // asc or desc
+  const [currentPage, setCurrentPage] = useState(1);
+  const resultsPerPage = 10; // or any other number you desire
+
+  // handle sorting of returned data
+  const sortResults = results => {
+    return [...results].sort((a, b) => {
+      if (sortOrder === "asc") {
+        return a[sortField] > b[sortField] ? 1 : -1;
+      } else {
+        return a[sortField] < b[sortField] ? 1 : -1;
+      }
+    });
+  };
+
+  // pagination:
+  // display subset of results based on current page
+  const paginatedResults = searchResults.slice(
+    (currentPage - 1) * resultsPerPage,
+    currentPage * resultsPerPage
+  );
 
   const handleSearch = async () => {
-    // Make a call to GitHub API with searchTerm, selectedLanguage, selectedFramework
-    // and update searchResults.
-    // This is just a placeholder and should be replaced with the actual API call.
-    // const response = await axios.get("YOUR_GITHUB_API_ENDPOINT_HERE");
-    // setSearchResults(response.data);
+    // Construct the full search term using the selected language and framework
+    const fullSearchTerm = constructSearchTerm({
+      language: selectedLanguage,
+      framework: selectedFramework
+    });
+
+    // Prepare parameters for the search
+    const params = {
+      searchTerm: fullSearchTerm,
+      issueLabels: selectedIssueLabels
+    };
+
+    // Use the searchProjects Redux action to fetch the results
+    searchProjects(params);
+    console.log("searchResults", searchResults);
   };
 
   const fetchRecommendedProjects = async () => {
@@ -29,8 +64,8 @@ const SearchPage = ({ auth }) => {
 
   useEffect(() => {
     // Assuming languages and frameworks would be static, else you can fetch them from an API
-    setLanguages(["JavaScript", "Python", "Ruby"]);
-    setFrameworks(["React", "Angular", "Vue"]);
+    setLanguages(["JavaScript", "Python", "Ruby", "C++", "C#", "Rust"]);
+    setFrameworks(["React", "Angular", "Vue", "Laravel", "Spring"]);
 
     fetchRecommendedProjects();
   }, []);
@@ -38,7 +73,7 @@ const SearchPage = ({ auth }) => {
   return (
     <div className="search-page">
       {/* Search Input */}
-      <div>
+      <div className="search-container">
         <input
           value={searchTerm}
           onChange={e => setSearchTerm(e.target.value)}
@@ -48,9 +83,9 @@ const SearchPage = ({ auth }) => {
       </div>
 
       {/* Search Parameters Section */}
-      <div className="search-params">
-        <div>
-          <h4>Languages</h4>
+      <div className="search-params-container">
+        <h4>Languages</h4>
+        <div className="search-params">
           {languages.map(lang =>
             <div key={lang}>
               <input
@@ -63,8 +98,8 @@ const SearchPage = ({ auth }) => {
             </div>
           )}
         </div>
-        <div>
-          <h4>Frameworks</h4>
+        <h4>Frameworks</h4>
+        <div className="search-params">
           {frameworks.map(framework =>
             <div key={framework}>
               <input
@@ -74,6 +109,31 @@ const SearchPage = ({ auth }) => {
                 onChange={() => setSelectedFramework(framework)}
               />
               {framework}
+            </div>
+          )}
+        </div>
+        <h4>Issue Labels</h4>
+        <div className="search-params">
+          {["good first issue", "help wanted"].map(label =>
+            <div key={label}>
+              <input
+                type="checkbox"
+                name="issueLabel"
+                value={label}
+                onChange={() => {
+                  if (selectedIssueLabels.includes(label)) {
+                    setSelectedIssueLabels(prevLabels =>
+                      prevLabels.filter(l => l !== label)
+                    );
+                  } else {
+                    setSelectedIssueLabels(prevLabels => [
+                      ...prevLabels,
+                      label
+                    ]);
+                  }
+                }}
+              />
+              {label}
             </div>
           )}
         </div>
@@ -91,20 +151,61 @@ const SearchPage = ({ auth }) => {
         </div>}
 
       {/* Search Results Section */}
-      <div className="search-results">
-        {searchResults.map(result =>
-          <div key={result.id}>
-            {result.name}
-          </div>
-        )}
+      <div>
+        <div>
+          <select
+            value={sortField}
+            onChange={e => setSortField(e.target.value)}
+          >
+            <option value="" disabled>
+              Choose a field
+            </option>
+            <option value="createdAt">Created At</option>
+            <option value="latestMergedPR">Last Pull Request Date</option>
+            <option value="mentionableUsersCount">
+              Number of Contributors
+            </option>
+            <option value="starCount">Stargazer Total</option>
+          </select>
+
+          <button onClick={() => setSortOrder("asc")}>Ascending</button>
+          <button onClick={() => setSortOrder("desc")}>Descending</button>
+        </div>
+        {/* Search Results Section */}
+        {/* <div className="search-results">
+          {searchResults.map(result =>
+            <ProjectCard key={result.id} project={result} />
+          )}
+        </div> */}
+        <div className="search-results">
+          {sortResults(paginatedResults).map(result =>
+            <ProjectCard key={result.id} project={result} />
+          )}
+        </div>
+
+        {/* Pagination Controls */}
+        <div>
+          <button
+            onClick={() => setCurrentPage(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+          <button
+            onClick={() => setCurrentPage(currentPage + 1)}
+            disabled={currentPage * resultsPerPage >= searchResults.length}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
-function mapStateToProps({ auth }) {
+function mapStateToProps({ auth, searchResults }) {
   // Grab the auth state
-  return { auth };
+  return { auth, searchResults };
 }
 
-export default connect(mapStateToProps)(SearchPage); // Connected to Redux
+export default connect(mapStateToProps, { searchProjects })(SearchPage); // Connected to Redux

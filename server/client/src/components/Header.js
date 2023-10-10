@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import logo from "../img/spotfinder_logo_inverse_color_drk_lt.jpg";
 
 class Header extends Component {
   renderContent() {
@@ -65,6 +66,11 @@ class Header extends Component {
           <div className="container">
             {" "}{/* Added container for center alignment */}
             <Link to={this.props.auth ? "/" : "/"} className="navbar-brand">
+              <img
+                src={logo}
+                alt="SpotFinder Logo"
+                className="spotfinder-logo"
+              />
               SpotFinder
             </Link>
             <ul className="navbar-nav ml-auto navbar-light">

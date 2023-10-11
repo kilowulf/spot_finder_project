@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
+import {
+  BiSolidChevronUpSquare,
+  BiSolidChevronDownSquare
+} from "react-icons/bi";
 import { connect } from "react-redux";
 import { searchProjects } from "../actions";
 import { constructSearchTerm } from "../utils/constructSearchQuery";
 import ProjectCard from "./ProjectCard";
 
 const SearchPage = ({ auth, searchProjects, searchResults }) => {
+  const buttonColor = "#2ea44f";
   // state setting
   const [searchTerm, setSearchTerm] = useState("");
   const [languages, setLanguages] = useState([]);
@@ -65,7 +70,16 @@ const SearchPage = ({ auth, searchProjects, searchResults }) => {
   useEffect(() => {
     // Assuming languages and frameworks would be static, else you can fetch them from an API
     setLanguages(["JavaScript", "Python", "Ruby", "C++", "C#", "Rust"]);
-    setFrameworks(["React", "Angular", "Vue", "Laravel", "Spring"]);
+    setFrameworks([
+      "React",
+      "Angular",
+      "Vue",
+      "Laravel",
+      "Spring",
+      "Django",
+      "Flask",
+      "NextJs"
+    ]);
 
     fetchRecommendedProjects();
   }, []);
@@ -151,8 +165,12 @@ const SearchPage = ({ auth, searchProjects, searchResults }) => {
         </div>}
 
       {/* Search Results Section */}
-      <div>
-        <div>
+
+      {/* Search Results Section */}
+
+      <div className="search-results">
+        <div className="search-sort">
+          <h3>Search Results</h3>
           <select
             value={sortField}
             onChange={e => setSortField(e.target.value)}
@@ -168,23 +186,36 @@ const SearchPage = ({ auth, searchProjects, searchResults }) => {
             <option value="starCount">Stargazer Total</option>
           </select>
 
-          <button onClick={() => setSortOrder("asc")}>Ascending</button>
-          <button onClick={() => setSortOrder("desc")}>Descending</button>
-        </div>
-        {/* Search Results Section */}
-        {/* <div className="search-results">
-          {searchResults.map(result =>
-            <ProjectCard key={result.id} project={result} />
-          )}
-        </div> */}
-        <div className="search-results">
-          {sortResults(paginatedResults).map(result =>
-            <ProjectCard key={result.id} project={result} />
-          )}
+          <button
+            onClick={() => setSortOrder("asc")}
+            style={{ backgroundColor: "transparent", border: "none" }}
+          >
+            <BiSolidChevronUpSquare
+              size="3.20em"
+              color={buttonColor}
+              onClick={() => setSortOrder("asc")}
+            />
+          </button>
+          <button
+            onClick={() => setSortOrder("desc")}
+            style={{ backgroundColor: "transparent", border: "none" }}
+          >
+            <BiSolidChevronDownSquare
+              size="3.20em"
+              color={buttonColor}
+              onClick={() => setSortOrder("desc")}
+            />
+          </button>
         </div>
 
-        {/* Pagination Controls */}
-        <div>
+        {sortResults(paginatedResults).map(result =>
+          <ProjectCard key={result.id} project={result} />
+        )}
+      </div>
+
+      {/* Pagination Controls */}
+      {searchResults.length > 0 &&
+        <div className="search-pagination">
           <button
             onClick={() => setCurrentPage(currentPage - 1)}
             disabled={currentPage === 1}
@@ -197,8 +228,7 @@ const SearchPage = ({ auth, searchProjects, searchResults }) => {
           >
             Next
           </button>
-        </div>
-      </div>
+        </div>}
     </div>
   );
 };

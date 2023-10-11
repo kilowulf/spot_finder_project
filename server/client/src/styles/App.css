@@ -265,9 +265,83 @@
   margin-bottom: 3px;
 }
 
-/* .search-params div:last-child {
-  margin-right: 0;
-} */
+/* Search sort section styling */
+.search-sort {
+  /* Add some top margin for spacing from the search results header */
+  display: flex; /* New: Using flexbox to layout children horizontally */
+  align-items: center; /* New: Vertically aligns children to the center */
+  justify-content: flex-end; /* Aligns children to the right */
+  margin-bottom: 9px;
+}
+.search-sort h3 {
+  margin-right: 390px;
+}
+
+.search-sort select,
+.search-sort button {
+  height: 53px; /* New: Define a consistent height */
+  line-height: 36px; /* New: Aligns text/icon vertically in the center */
+  /* ... other existing styles ... */
+  margin-bottom: 10px;
+}
+
+.search-sort select {
+  /* Horizontal margin */
+  padding: 6px; /* Padding to adjust the size */
+  font-size: 1rem; /* Adjusting the font size to match the dropdown */
+  border-radius: 4px; /* Optional: To make the edges rounded */
+  cursor: pointer; /* Makes it obvious that the item is clickable */
+  height: auto;
+  margin-top: 6px;
+}
+.search-sort button {
+  /* Horizontal margin */
+  padding: 1px; /* Padding to adjust the size */
+  font-size: 1rem; /* Adjusting the font size to match the dropdown */
+  border-radius: 4px; /* Optional: To make the edges rounded */
+  margin-bottom: 4px;
+  width: 46px;
+  /* Makes it obvious that the item is clickable */
+}
+
+.search-sort button {
+  background-color: #2ea44f; /* Light grey background for buttons */
+  border: 1px solid #ccc; /* Border to match the dropdown */
+}
+
+.search-sort button:hover {
+  background-color: #2ea44f; /* Darker grey when hovering */
+}
+
+/* Search Pagination section: */
+/* ... your other styles ... */
+
+.search-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.search-pagination button {
+  padding: 8px 15px;
+  margin: 0 10px;
+  border: 1px solid #e1e4e8;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-pagination button:hover {
+  background-color: #f6f8fa;
+}
+
+.search-pagination button:disabled {
+  color: #a0a0a0;
+  cursor: not-allowed;
+  background-color: #f6f8fa;
+}
+
+/* If you want the sorting section to have some space from the search results, you can add a margin to the .search-results class */
 
 .search-params input[type="radio"],
 .search-params input[type="checkbox"] {
@@ -289,7 +363,12 @@
 }
 
 /* Styling for the search results and recommended projects section */
-.search-results,
+.search-results {
+  border: 1px solid #e1e4e8;
+  border-radius: 5px;
+  padding: 9px 5px 5px;
+  margin-top: 20px;
+}
 .recommended-projects {
   border: 1px solid #e1e4e8;
   border-radius: 5px;

@@ -270,11 +270,12 @@
   /* Add some top margin for spacing from the search results header */
   display: flex; /* New: Using flexbox to layout children horizontally */
   align-items: center; /* New: Vertically aligns children to the center */
-  justify-content: flex-end; /* Aligns children to the right */
+  /* Aligns children to the right */
   margin-bottom: 9px;
 }
 .search-sort h3 {
-  margin-right: 390px;
+  flex: 1;
+  margin-left: 15px;
 }
 
 .search-sort select,

@@ -151,6 +151,7 @@ class ProfilePrefCard extends Component {
     } else {
       return (
         <div className="user-preferences">
+           <div className="user-preferences-header">User Preferences</div>
           <p>
             User Experience: {this.state.experienceLevel}
           </p>

@@ -104,9 +104,9 @@ class Profile extends Component {
           <h3 className="mt-2">
             {auth.username}
           </h3>
-          <h2 className="mt-2">
+          <h4 className="mt-2">
             {auth.bio}
-          </h2>
+          </h4>
           <p>
             <strong>GitHub ID:</strong> {auth.githubId}
           </p>
@@ -118,7 +118,7 @@ class Profile extends Component {
               View GitHub Profile
             </a>
           </p>
-          <button onClick={this.handleEditProfileToggle}>Edit</button>
+          {/* <button onClick={this.handleEditProfileToggle}>Edit</button> */}
         </div>
       );
     }
@@ -143,7 +143,7 @@ class Profile extends Component {
         </div>
 
         {/* Middle: User Preferences */}
-        <div className="profile-container">
+        <div className="profile-pref-container">
           {/* Other components */}
           <ProfilePrefCard auth={auth} onSave={this.handleSavePreferences} />
         </div>

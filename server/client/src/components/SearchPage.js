@@ -69,7 +69,16 @@ const SearchPage = ({ auth, searchProjects, searchResults }) => {
 
   useEffect(() => {
     // Assuming languages and frameworks would be static, else you can fetch them from an API
-    setLanguages(["JavaScript", "Python", "Ruby", "C++", "C#", "Rust"]);
+    setLanguages([
+      "JavaScript",
+      "Python",
+      "Ruby",
+      "C++",
+      "C#",
+      "Rust",
+      "Swift",
+      "Java"
+    ]);
     setFrameworks([
       "React",
       "Angular",
@@ -128,7 +137,16 @@ const SearchPage = ({ auth, searchProjects, searchResults }) => {
         </div>
         <h4>Issue Labels</h4>
         <div className="search-params">
-          {["good first issue", "help wanted"].map(label =>
+          {[
+            "good first issue",
+            "help wanted",
+            "Bug",
+            "Design Limitation",
+            "Effort: Casual",
+            "Possible Improvement",
+            "Suggestion",
+            "Experimentation Needed"
+          ].map(label =>
             <div key={label}>
               <input
                 type="checkbox"

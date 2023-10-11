@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 .spotfinder-logo {
   width: 3%;
   height: auto;
@@ -87,21 +91,139 @@
 .profile-right {
   flex: 1;
   margin: 0 20px;
-  /* Add additional styling as needed */
+}
+/* Profile-Details Styling */
+/* Profile Details Styling following GitHub Theme */
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  border: 1px solid #e1e4e8;
+  padding: 16px;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #24292e;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+/* .profile-details input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e1e4e8;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.profile-details button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #2ea44f;
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.profile-details button:hover {
+  background-color: #2a8f47;
+} */
+
+.profile-details h2,
+.profile-details h3,
+.profile-details p {
+  margin: 10px 0;
+  line-height: 1.4;
+}
+
+.profile-details a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+.profile-details a:hover {
+  text-decoration: underline;
+}
+
+/* Specific style for the profile preferences container */
+.profile-pref-container {
+  flex: 1;
+  margin: 0;
+}
+
+.profile-pref-container button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #2ea44f;
+  color: white;
+  cursor: pointer;
+}
+
+.profile-pref-container button:hover {
+  background-color: #2a8f47;
 }
 
 /*Profile Component:: user-preferences section:*/
 .user-preferences {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   border: 1px solid #e1e4e8; /* Light gray border color used in GitHub */
   border-radius: 6px; /* Slightly rounded corners */
   padding: 16px; /* Some padding inside the container */
   margin-top: 20px; /* Space from the content above it */
+  color: #24292e;
+  background-color: #ffffff;
+  margin: 0;
 }
 
 .user-preferences-header {
   font-size: 20px;
-  margin-bottom: 16px; /* Space below the header */
-  font-weight: 600; /* Making it slightly bold */
+  margin-bottom: 16px;
+  font-weight: 600;
+  border-bottom: 1px solid #e1e4e8;
+  padding-bottom: 10px;
+}
+
+.user-preferences-content label {
+  display: block;
+  margin: 10px 0;
+  font-weight: 500;
+}
+
+.user-preferences-content select,
+.user-preferences-content input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.user-preferences-content input[type="checkbox"] {
+  border-radius: 3px;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.user-preferences-content input[type="checkbox"]:checked {
+  background-color: #0366d6;
+}
+
+.user-preferences-content button {
+  background-color: #2ea44f;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.user-preferences-content button:hover {
+  background-color: #2a8f47;
+}
+
+.user-preferences-content button:last-of-type {
+  margin-right: 0;
 }
 
 /* Landing Component Styling*/
@@ -283,12 +405,12 @@
   height: 53px; /* New: Define a consistent height */
   line-height: 36px; /* New: Aligns text/icon vertically in the center */
   /* ... other existing styles ... */
-  margin-bottom: 10px;
+  margin-bottom: 2px;
 }
 
 .search-sort select {
   /* Horizontal margin */
-  padding: 6px; /* Padding to adjust the size */
+  padding: 7px; /* Padding to adjust the size */
   font-size: 1rem; /* Adjusting the font size to match the dropdown */
   border-radius: 4px; /* Optional: To make the edges rounded */
   cursor: pointer; /* Makes it obvious that the item is clickable */
@@ -297,10 +419,10 @@
 }
 .search-sort button {
   /* Horizontal margin */
-  padding: 1px; /* Padding to adjust the size */
+  padding: 0px; /* Padding to adjust the size */
   font-size: 1rem; /* Adjusting the font size to match the dropdown */
   border-radius: 4px; /* Optional: To make the edges rounded */
-  margin-bottom: 4px;
+  margin-bottom: 0px;
   width: 46px;
   /* Makes it obvious that the item is clickable */
 }
@@ -386,6 +508,69 @@
 .search-results div:last-child,
 .recommended-projects div:last-child {
   border-bottom: none;
+}
+
+/* Project Details Card Styling */
+.project-details {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  border: 1px solid #e1e4e8;
+  padding: 16px;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #24292e;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+.project-details h2 {
+  font-size: 1.5em;
+  margin: 10px 0;
+  line-height: 1.4;
+}
+
+.project-details p {
+  margin: 10px 0;
+  line-height: 1.4;
+}
+
+.project-details a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+.project-details a:hover {
+  text-decoration: underline;
+}
+
+.project-details button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #2ea44f;
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.project-details button:hover {
+  background-color: #2a8f47;
+}
+
+.project-details > div {
+  margin-bottom: 10px;
+}
+
+.project-url a,
+.project-owner a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+.project-url a:hover,
+.project-owner a:hover {
+  text-decoration: underline;
 }
 
 /* GitHub uses rounded edges for buttons */

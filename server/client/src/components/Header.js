@@ -29,7 +29,11 @@ class Header extends Component {
             </Link>
           </li>,
           <li className="nav-item" key="2">
-            <a className="nav-link" href="/api/logout">
+            <a
+              className="nav-link"
+              href="/api/logout"
+              style={{ fontSize: "12px", marginTop: "4px" }}
+            >
               Logout
             </a>
           </li>

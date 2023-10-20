@@ -6,7 +6,7 @@ export const constructSearchTerm = ({ language, framework }) => {
   }
 
   if (framework) {
-    baseQuery += ` ${framework}`;
+    baseQuery += ` framework:${framework}`;
   }
 
   return baseQuery;

@@ -1,31 +1,53 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { trackProject } from "../actions";
+import { connect } from "react-redux";
 
 function ProjectDetailsCard() {
   const { projectId } = useParams();
+
   const dispatch = useDispatch();
+  const auth = useSelector(state => state.auth);
+
+  // state for a handling toggle functionality
+  const [issuesListVisible, setIssuesListVisible] = useState(false);
+
+  // toggle handler
+  const toggleIssuesList = () => {
+    setIssuesListVisible(!issuesListVisible);
+  };
 
   // Get the search results and projectsTracked from Redux store
   const searchResults = useSelector(state => state.searchResults);
-  const projectsTracked = useSelector(state => state.projectsTracked); // Assuming you have a `currentUser` state
-  console.log("projects tracked", projectsTracked);
+
+  console.log("projectDetailsCard: projectsTracked state", auth);
 
   // Find the project from the search results based on the projectId
   const project = searchResults.find(result => result.id === projectId);
 
   // Determine if project is already tracked
-  const isTracked = projectsTracked
-    ? projectsTracked.some(p => p.id === projectId)
+  const isTracked = auth.projectsTracked
+    ? auth.projectsTracked.some(p => p.id === projectId)
     : false;
+
+  // local state tracking of project
+  const [localIsTracked, setLocalIsTracked] = useState(false);
+
+  useEffect(
+    () => {
+      setLocalIsTracked(isTracked);
+    },
+    [isTracked, projectId]
+  );
 
   // handle tracking for project
   const handleTrackProject = () => {
-    if (project && !isTracked) {
-      dispatch(trackProject(project));
-      // setIsTracked(true); // Update the state to reflect that the project is tracked
+    if (project && !localIsTracked) {
+      dispatch(trackProject(project)).then(() => {
+        setLocalIsTracked(true);
+      });
     }
   };
 
@@ -121,9 +143,26 @@ function ProjectDetailsCard() {
 
       <div className="project-issue-count">
         <p>
-          Issue Count: {project.issueCount}
+          {/* 4. Add an element to trigger the toggle function */}
+          <span onClick={toggleIssuesList} style={{ cursor: "pointer" }}>
+            Issue Count: {project.issueCount}
+          </span>
         </p>
       </div>
+
+      {issuesListVisible &&
+        <div className="project-issues-list">
+          <p>Issues:</p>
+          <ul>
+            {project.issues && project.issues.length > 0
+              ? project.issues.map((issue, index) =>
+                  <li key={index}>
+                    {issue.body}
+                  </li>
+                )
+              : <li>No issues available</li>}
+          </ul>
+        </div>}
 
       <div className="project-latest-merged-pr">
         <p>
@@ -134,11 +173,17 @@ function ProjectDetailsCard() {
         </p>
       </div>
 
-      {isTracked
+      {localIsTracked
         ? <button disabled>Project Tracked</button>
         : <button onClick={handleTrackProject}>Track Project</button>}
     </div>
   );
 }
 
-export default ProjectDetailsCard;
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  };
+};
+
+export default connect(mapStateToProps)(ProjectDetailsCard);

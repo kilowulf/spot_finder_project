@@ -1,4 +1,5 @@
 export const normalizeQueryResultData = searchResults => {
+  console.log(searchResults);
   return searchResults.map(edge => {
     const repo = edge.node;
 

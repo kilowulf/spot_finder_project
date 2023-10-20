@@ -77,6 +77,54 @@ const SEARCH_QUERY = gql`
   }
 `;
 
+// helper function to format date
+const formatDate = dateString => {
+  const date = new Date(dateString);
+  return date.toISOString().split("T")[0];
+};
+
+// normailzation
+const normalizeQueryResultData = searchResults => {
+  return searchResults.map(edge => {
+    const repo = edge.node;
+
+    return {
+      id: repo.id,
+      name: repo.name,
+      url: repo.url,
+      createdAt: formatDate(repo.createdAt),
+      contributingGuidelinesBody: repo.contributingGuidelines
+        ? repo.contributingGuidelines.body
+        : null,
+      mentionableUsersCount: repo.mentionableUsers
+        ? repo.mentionableUsers.totalCount
+        : 0,
+      description: repo.description,
+      isArchived: repo.isArchived,
+      starCount: repo.stargazers ? repo.stargazers.totalCount : 0,
+      owner: {
+        id: repo.owner.id,
+        login: repo.owner.login,
+        url: repo.owner.url
+      },
+      assignableUsersCount: repo.assignableUsers
+        ? repo.assignableUsers.totalCount
+        : 0,
+      licenseKey: repo.licenseInfo ? repo.licenseInfo.key : null,
+      primaryLanguage: repo.primaryLanguage ? repo.primaryLanguage.name : null,
+      languages: repo.languages
+        ? repo.languages.edges.map(edge => edge.node.name)
+        : [],
+      issueCount: repo.issues ? repo.issues.totalCount : 0,
+      issues: repo.issues ? repo.issues.edges.map(edge => edge.node) : [],
+      latestMergedPR:
+        repo.pullRequests && repo.pullRequests.edges.length > 0
+          ? formatDate(repo.pullRequests.edges[0].node.mergedAt)
+          : null
+    };
+  });
+};
+
 const searchGithub = async ({ searchTerm, issueLabels, after }) => {
   try {
     const result = await client.query({
@@ -85,14 +133,18 @@ const searchGithub = async ({ searchTerm, issueLabels, after }) => {
         searchTerm,
         issueLabels,
         after
-      }
+      },
+      fetchPolicy: "cache-first"
     });
 
     const data = result.data;
+    console.log(data);
     const endCursor = data.search.pageInfo.endCursor;
 
+    const normalizedData = normalizeQueryResultData(data.search.edges);
+
     return {
-      data,
+      data: normalizedData,
       endCursor
     };
   } catch (error) {

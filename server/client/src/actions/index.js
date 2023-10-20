@@ -52,16 +52,18 @@ export const searchProjects = params => async dispatch => {
     // Assuming backend will form the GraphQL query based on provided parameters.
     const response = await axios.post("/api/github_search", params);
     // Extract repositories from the response
-    const repositories = response.data.data.search.edges.map(edge => edge.node);
-    const flattenedResults = normalizeQueryResultData(
-      response.data.data.search.edges
-    );
+    // const repositories = response.data.edges.map(edge => edge.node);
+    // const flattenedResults = normalizeQueryResultData(
+    //   response.data.data.search.edges
+    // );
+
+    const flattenedResults = response.data.data;
 
     // Log to ensure we are dispatching the right data
     //console.log("Extracted repositories:", repositories);
 
     dispatch({ type: STORE_SEARCH_RESULTS, payload: flattenedResults });
-    console.log("Dispatching search results: ", repositories);
+    console.log("Dispatching search results: ", flattenedResults);
   } catch (error) {
     // Handle errors accordingly.
     console.log("Error from searchProjects action f", error);
@@ -70,23 +72,29 @@ export const searchProjects = params => async dispatch => {
 
 // track and dispatch project to user object property: projectsTracked
 export const trackProject = project => async (dispatch, getState) => {
-  try {
-    // get current State
-    const projectsTracked = getState().projectsTracked;
-    // check if project already tracked
-    const isAlreadyTracked = projectsTracked.some(p => p.id === project.id);
-    // if tracked, exit
-    if (isAlreadyTracked) {
-      return;
-    }
+  return new Promise(async (resolve, reject) => {
+    try {
+      const projectsTracked = getState().projectsTracked;
+      console.log("projectsTracked", projectsTracked);
+      const isAlreadyTracked = projectsTracked.some(p => p.id === project.id);
 
-    // call to server
-    const res = await axios.put("/api/track_project", project);
-    if (res.status === 200) {
-      // store results
-      dispatch({ type: TRACK_PROJECT, payload: res.data });
+      if (isAlreadyTracked) {
+        resolve(); // exit and resolve promise
+        return;
+      }
+
+      const res = await axios.put("/api/track_project", project);
+
+      if (res.status === 200) {
+        dispatch({ type: TRACK_PROJECT, payload: res.data });
+        console.log("Dispatching trackProject action: ", res.data);
+        resolve();
+      } else {
+        reject(new Error("Failed to track project"));
+      }
+    } catch (error) {
+      console.error("Error tracking project:", error);
+      reject(error);
     }
-  } catch (error) {
-    console.error("Error tracking project:", error);
-  }
+  });
 };

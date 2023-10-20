@@ -31,7 +31,16 @@ class App extends Component {
 
             <Route exact path="/surveys" component={Dashboard} />
             <Route path="/surveys/new" component={SurveyNew} />
-            <Route path="/project/:projectId" component={ProjectDetailsCard} />
+            <Route
+              path="/project/:projectId"
+              render={props =>
+                <ProjectDetailsCard
+                  key={props.match.params.projectId}
+                  auth={this.props.auth}
+                  fetchUser={this.props.fetchUser}
+                  {...props}
+                />}
+            />
           </div>
         </BrowserRouter>
       </div>

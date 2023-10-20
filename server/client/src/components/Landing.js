@@ -27,7 +27,7 @@ const Landing = () => {
           <h2>Find a Project</h2>
           <p>
             Ready to jump into the action?{" "}
-            <Link to="/search">Search for projects</Link> that match your
+            <Link to="/searchpage">Search for projects</Link> that match your
             interest and skills.
           </p>
         </section>

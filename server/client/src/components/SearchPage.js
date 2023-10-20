@@ -4,14 +4,16 @@ import {
   BiSolidChevronDownSquare
 } from "react-icons/bi";
 import { connect } from "react-redux";
-import { searchProjects } from "../actions";
+import { fetchUser, searchProjects } from "../actions";
 import { constructSearchTerm } from "../utils/constructSearchQuery";
 import ProjectCard from "./ProjectCard";
 
 const SearchPage = ({ auth, searchProjects, searchResults }) => {
+  console.log("auth object in searchPage", auth);
   const buttonColor = "#2ea44f";
   // state setting
   const [searchTerm, setSearchTerm] = useState("");
+  const [searching, setSearching] = useState(false);
   const [languages, setLanguages] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState(null);
   const [frameworks, setFrameworks] = useState([]);
@@ -42,6 +44,9 @@ const SearchPage = ({ auth, searchProjects, searchResults }) => {
   );
 
   const handleSearch = async () => {
+    setSearching(true);
+    // get updated current user object for projectTracked property
+    fetchUser();
     // Construct the full search term using the selected language and framework
     const fullSearchTerm = constructSearchTerm({
       language: selectedLanguage,
@@ -55,8 +60,9 @@ const SearchPage = ({ auth, searchProjects, searchResults }) => {
     };
 
     // Use the searchProjects Redux action to fetch the results
-    searchProjects(params);
-    console.log("searchResults", searchResults);
+    await searchProjects(params);
+    //console.log("searchResults", searchResults);
+    setSearching(false);
   };
 
   const fetchRecommendedProjects = async () => {
@@ -189,6 +195,7 @@ const SearchPage = ({ auth, searchProjects, searchResults }) => {
       <div className="search-results">
         <div className="search-sort">
           <h3>Search Results</h3>
+
           <select
             value={sortField}
             onChange={e => setSortField(e.target.value)}
@@ -225,9 +232,15 @@ const SearchPage = ({ auth, searchProjects, searchResults }) => {
             />
           </button>
         </div>
+        {searching &&
+          <div className="searching-dots">Searching repositories</div>}
 
         {sortResults(paginatedResults).map(result =>
-          <ProjectCard key={result.id} project={result} />
+          <ProjectCard
+            key={result.id}
+            project={result}
+            projectsTracked={auth.projectsTracked}
+          />
         )}
       </div>
 
@@ -256,4 +269,6 @@ function mapStateToProps({ auth, searchResults }) {
   return { auth, searchResults };
 }
 
-export default connect(mapStateToProps, { searchProjects })(SearchPage); // Connected to Redux
+export default connect(mapStateToProps, { fetchUser, searchProjects })(
+  SearchPage
+); // Connected to Redux

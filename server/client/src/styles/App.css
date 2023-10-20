@@ -230,10 +230,12 @@
 /* General Styles */
 .landing-container {
   display: flex;
+  overflow: auto;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 70vh; /* This ensures the container takes the full height of the viewport */
+
+  /* This ensures the container takes the full height of the viewport */
 }
 
 .landing-page {
@@ -387,6 +389,28 @@
   margin-bottom: 3px;
 }
 
+/* Search spinner graphic while waiting for results*/
+@keyframes dots {
+  0%,
+  20% {
+    content: ".";
+  }
+  40%,
+  60% {
+    content: "..";
+  }
+  80%,
+  100% {
+    content: "...";
+  }
+}
+
+.searching-dots::after {
+  content: "...";
+  display: inline-block;
+  animation: dots 1s steps(5, end) infinite;
+}
+
 /* Search sort section styling */
 .search-sort {
   /* Add some top margin for spacing from the search results header */
@@ -502,12 +526,63 @@
 .search-results div,
 .recommended-projects div {
   padding: 10px 0;
-  border-bottom: 1px solid #e1e4e8;
+  /* border-bottom: 1px solid #e1e4e8; */
 }
 
 .search-results div:last-child,
 .recommended-projects div:last-child {
   border-bottom: none;
+}
+
+/* Project Card Styling*/
+.project-container {
+  display: grid;
+  /* flex-direction: column; */
+  grid-template-columns: repeat(3, 1fr); /* 3 columns of equal width */
+  grid-gap: 10px;
+  border: 1px solid #e1e4e8; /* You can adjust this if you want another border style/color */
+  border-radius: 5px;
+  margin-bottom: 20px;
+
+  padding: 20px;
+}
+.project-container h3 {
+  margin-bottom: 10px;
+  font-size: 2.2rem;
+  padding-left: 10px;
+}
+
+.project-container a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+.project-container a:hover {
+  text-decoration: underline;
+}
+
+.project-container > div {
+  margin: 10px 0;
+  font-size: 1rem;
+  padding-left: 20px;
+}
+
+.project-description {
+  margin-left: 12px;
+}
+
+.project-container .feedback {
+  background-color: rgba(0, 255, 0, 0.1); /* Slight green background */
+  padding-left: 20px;
+ 
+  font-weight: bold;
+  grid-column: span 3;
+}
+
+.describer-text {
+  font-weight: bold; /* Makes the text bold */
+  color: #333; /* Gives a slightly darker color for emphasis */
+  margin-right: 5px; /* Provides a small gap between the describer and the data */
 }
 
 /* Project Details Card Styling */
@@ -571,6 +646,32 @@
 .project-url a:hover,
 .project-owner a:hover {
   text-decoration: underline;
+}
+
+/* Styling for the project-issues-list */
+.project-issues-list {
+  padding: 10px;
+  border: 1px solid #e1e4e8; /* Light grey border to match other components */
+  border-radius: 6px; /* Rounded corners */
+  margin-top: 15px;
+  background-color: #f9f9f9; /* Slightly lighter background for distinction */
+}
+
+.project-issues-list ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none; /* Remove bullet points */
+}
+
+.project-issues-list li {
+  margin: 10px 0; /* Space between issues */
+  padding: 5px 10px; /* Some internal space for each issue */
+  border-radius: 4px; /* Optional: Slight rounding for each issue */
+  line-height: 1.5; /* Increased line-height for readability */
+}
+
+.project-issues-list li:hover {
+  background-color: #e6e6e6; /* Slightly darker background on hover */
 }
 
 /* GitHub uses rounded edges for buttons */

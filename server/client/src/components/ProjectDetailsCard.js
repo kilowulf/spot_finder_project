@@ -22,10 +22,9 @@ function ProjectDetailsCard() {
   // Get the search results and projectsTracked from Redux store
   const searchResults = useSelector(state => state.searchResults);
 
-  console.log("projectDetailsCard: projectsTracked state", auth);
-
   // Find the project from the search results based on the projectId
   const project = searchResults.find(result => result.id === projectId);
+  console.log("project from projectDetailsCard: ", project);
 
   // Determine if project is already tracked
   const isTracked = auth.projectsTracked
@@ -56,21 +55,21 @@ function ProjectDetailsCard() {
     return <div>Project not found!</div>;
   }
 
-  return (
-    <div className="project-details">
+  return <div className="project-details">
       <h2>
         {project.name}
       </h2>
 
       <div className="project-description">
         <p>
-          Description: {project.description}
+          <span className="describer-text">Description:</span>
+          {project.description}
         </p>
       </div>
 
       <div className="project-url">
         <p>
-          URL:{" "}
+          <span className="describer-text">URL:</span>
           <a href={project.url} target="_blank" rel="noopener noreferrer">
             {project.url}
           </a>
@@ -79,38 +78,44 @@ function ProjectDetailsCard() {
 
       <div className="project-created-at">
         <p>
-          Created At: {new Date(project.createdAt).toLocaleDateString()}
+          <span className="describer-text">Created: </span>
+          {new Date(project.createdAt).toLocaleDateString()}
         </p>
       </div>
 
       <div className="project-contributing-guidelines">
         <p>
-          Contributing Guidelines:{" "}
-          {project.contributingGuidelinesBody || "Not available"}
+          <span className="describer-text">
+            Contributing Guidelines:
+          </span> {project.contributingGuidelinesBody || "Not available"}
         </p>
       </div>
 
       <div className="project-mentionable-users">
         <p>
-          Mentionable Users Count: {project.mentionableUsersCount}
+          <span className="describer-text">Mentionable Users Count: </span>
+          {project.mentionableUsersCount}
         </p>
       </div>
 
       <div className="project-archived-status">
         <p>
-          Is Archived? {project.isArchived ? "Yes" : "No"}
+          <span className="describer-text">
+            Is Archived:{" "}
+          </span> {project.isArchived ? "Yes" : "No"}
         </p>
       </div>
 
       <div className="project-star-count">
         <p>
-          Stars: {project.starCount}
+          <span className="describer-text">Stars: </span>
+          {project.starCount}
         </p>
       </div>
 
       <div className="project-owner">
         <p>
-          Owner:{" "}
+          <span className="describer-text">Owner: </span>
           <a href={project.owner.url} target="_blank" rel="noopener noreferrer">
             {project.owner.login}
           </a>
@@ -119,25 +124,36 @@ function ProjectDetailsCard() {
 
       <div className="project-assignable-users">
         <p>
-          Assignable Users Count: {project.assignableUsersCount}
+          <span className="describer-text">Assignable Users Count: </span>
+          {project.assignableUsersCount}
         </p>
       </div>
 
       <div className="project-license">
         <p>
-          License: {project.licenseKey || "Not specified"}
+          <span className="describer-text">License: </span>
+          {project.licenseKey || "Not specified"}
         </p>
       </div>
 
       <div className="project-primary-language">
         <p>
-          Primary Language: {project.primaryLanguage || "Not specified"}
+          <span className="describer-text">Primary Language: </span>
+          {project.primaryLanguage || "Not specified"}
         </p>
       </div>
 
       <div className="project-languages">
         <p>
-          Languages: {project.languages.join(", ")}
+          <span className="describer-text">Languages: </span>
+          {project.languages.join(", ")}
+        </p>
+      </div>
+
+      <div className="project-latest-merged-pr">
+        <p>
+          <span className="describer-text">Latest Merged PR Date: </span>
+          {project.latestMergedPR ? new Date(project.latestMergedPR).toLocaleDateString() : "Not available"}
         </p>
       </div>
 
@@ -145,39 +161,32 @@ function ProjectDetailsCard() {
         <p>
           {/* 4. Add an element to trigger the toggle function */}
           <span onClick={toggleIssuesList} style={{ cursor: "pointer" }}>
-            Issue Count: {project.issueCount}
+            <span className="describer-text">Issue Count: </span>
+            {project.issueCount}
           </span>
         </p>
       </div>
 
-      {issuesListVisible &&
-        <div className="project-issues-list">
-          <p>Issues:</p>
+      {issuesListVisible && <div className="project-issues-list">
+          <p>
+            <span className="describer-text">Issues:</span>
+          </p>
           <ul>
-            {project.issues && project.issues.length > 0
-              ? project.issues.map((issue, index) =>
-                  <li key={index}>
-                    {issue.body}
-                  </li>
-                )
-              : <li>No issues available</li>}
+            {project.issues && project.issues.length > 0 ? project.issues.map(
+                  (issue, index) =>
+                    <li key={index}>
+                      {issue.body}
+                    </li>
+                ) : <li>No issues available</li>}
           </ul>
         </div>}
 
-      <div className="project-latest-merged-pr">
-        <p>
-          Latest Merged PR Date:{" "}
-          {project.latestMergedPR
-            ? new Date(project.latestMergedPR).toLocaleDateString()
-            : "Not available"}
-        </p>
-      </div>
-
-      {localIsTracked
-        ? <button disabled>Project Tracked</button>
-        : <button onClick={handleTrackProject}>Track Project</button>}
-    </div>
-  );
+      {auth && (localIsTracked ? <button className="button-disabled" disabled>
+              Project Tracked
+            </button> : <button onClick={handleTrackProject}>
+              Track Project
+            </button>)}
+    </div>;
 }
 
 const mapStateToProps = state => {

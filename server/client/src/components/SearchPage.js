@@ -20,6 +20,7 @@ const SearchPage = ({ auth, searchProjects, searchResults }) => {
   const [selectedFramework, setSelectedFramework] = useState(null);
   const [recommendedProjects, setRecommendedProjects] = useState([]);
   const [selectedIssueLabels, setSelectedIssueLabels] = useState([]);
+  const [hasSearched, setHasSearched] = useState(false);
   const [sortField, setSortField] = useState("");
   const [sortOrder, setSortOrder] = useState("asc"); // asc or desc
   const [currentPage, setCurrentPage] = useState(1);
@@ -45,6 +46,7 @@ const SearchPage = ({ auth, searchProjects, searchResults }) => {
 
   const handleSearch = async () => {
     setSearching(true);
+    setHasSearched(true);
     // get updated current user object for projectTracked property
     fetchUser();
     // Construct the full search term using the selected language and framework
@@ -149,8 +151,8 @@ const SearchPage = ({ auth, searchProjects, searchResults }) => {
             "Bug",
             "Design Limitation",
             "Effort: Casual",
-            "Possible Improvement",
             "Suggestion",
+            "Possible Improvement",
             "Experimentation Needed"
           ].map(label =>
             <div key={label}>
@@ -235,6 +237,13 @@ const SearchPage = ({ auth, searchProjects, searchResults }) => {
         {searching &&
           <div className="searching-dots">Searching repositories</div>}
 
+        {/* No Matches Found Message */}
+        {!searching &&
+          searchResults.length === 0 &&
+          hasSearched &&
+          <div className="no-matches">No matches found</div>}
+
+        {/* Sorting of Search Results */}
         {sortResults(paginatedResults).map(result =>
           <ProjectCard
             key={result.id}

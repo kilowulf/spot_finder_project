@@ -3,7 +3,10 @@ import { ADD_USER_MESSAGE, ADD_BOT_MESSAGE } from "../actions/types";
 // chatbotReducer.js
 
 const initialState = {
-  messages: [],
+  messages: [{
+    type: 'bot',
+    text: 'Welcome to SpotFinder. How can i help you today?'
+  }],
   
 };
 

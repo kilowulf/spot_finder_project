@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { sendMessage, addUserMessage } from "../actions"; // Correct this path
 
-function Chatbot({ messages, sendMessage, addUserMessage }) {
+function Chatbot({ messages, sendMessage, addUserMessage, username }) {
   const [showChat, setShowChat] = useState(false);
 
   const handleSendMessage = async message => {
@@ -26,9 +26,25 @@ function Chatbot({ messages, sendMessage, addUserMessage }) {
             </button>
             <div className="messages">
               {messages.map((msg, index) =>
-                <p key={index}>
-                  {msg.text}
-                </p>
+                <div
+                  key={index}
+                  className={
+                    msg.type === "user"
+                      ? "user-message-container"
+                      : "bot-message-container"
+                  }
+                >
+                  <div className="message-header">
+                    {msg.type === "user" ? username : "Spotbot"}
+                  </div>
+                  <p
+                    className={
+                      msg.type === "user" ? "user-message" : "bot-message"
+                    }
+                  >
+                    {msg.text}
+                  </p>
+                </div>
               )}
             </div>
             <input

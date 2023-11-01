@@ -39,7 +39,7 @@ class App extends Component {
                   {...props}
                 />}
             />
-            <Chatbot />
+            <Chatbot username={this.props.username} />
           </div>
         </BrowserRouter>
       </div>
@@ -47,4 +47,10 @@ class App extends Component {
   }
 }
 
-export default connect(null, actions)(App);
+const mapStateToProps = state => {
+  return {
+    username: state.auth?.username ? state.auth.displayname : "User"
+  };
+};
+
+export default connect(mapStateToProps, actions)(App);

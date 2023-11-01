@@ -758,3 +758,59 @@
   color: #2a8f47;
   text-decoration: underline;
 }
+
+.user-message {
+  background-color: #f5f5f5; /* Light gray for user messages */
+  padding: 8px;
+  border-radius: 8px;
+  margin: 5px 5px 5px 50%; /* Offset on the right */
+  clear: both;
+  text-align: right;
+}
+
+.bot-message {
+  background-color: #cce5ff; /* Light blue for bot messages */
+  padding: 8px;
+  border-radius: 8px;
+  margin: 5px 50% 5px 5px; /* Offset on the left */
+  clear: both;
+}
+
+.user-message::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-width: 0 15px 15px 0; /* Size of arrow */
+  border-color: transparent #f5f5f5 transparent transparent;
+}
+
+.bot-message::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-width: 0 0 15px 15px; /* Size of arrow */
+  border-color: transparent transparent #cce5ff transparent;
+}
+
+.message-header {
+  font-weight: bold;
+  padding: 4px;
+}
+
+.user-message-container, .bot-message-container {
+  margin: 8px 0;
+}
+
+.user-message-container .message-header {
+  text-align: right;
+  background-color: #f5f5f5;
+  padding-right: 8px;
+}
+
+.bot-message-container .message-header {
+  text-align: left;
+  background-color: #cce5ff;
+  padding-left: 8px;
+}

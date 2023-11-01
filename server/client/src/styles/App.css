@@ -693,3 +693,68 @@
 .btn:hover {
   background-color: #2a8f47;
 }
+
+/* Chatbot Modal styling */
+/* Chatbot Open Button */
+.chatbot-trigger {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000; /* making sure it appears above everything else */
+  padding: 10px 20px;
+  background-color: rgba(50, 51, 56, 0.956); /* from your navbar color */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.chatbot-trigger:hover {
+  background-color: #050404; /* a bit lighter on hover */
+}
+
+/* Chatbot Modal Styles */
+.chat-modal {
+  position: fixed;
+  bottom: 70px; /* height of the open button + a little margin */
+  right: 20px;
+  width: 300px; /* or your desired width */
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 1001; /* Above the open button */
+  background-color: #fff;
+  border: 1px solid #e1e4e8; /* GitHub-like border */
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.chat-modal .messages {
+  padding: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.chat-modal input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e1e4e8; /* GitHub-like border */
+  border-top: none; /* Remove the top border to attach seamlessly with messages */
+  border-radius: 0 0 8px 8px; /* rounded bottom corners */
+}
+
+.chat-modal button {
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 1px 4px;
+  outline: inherit;
+  transition: color 0.3s ease;
+}
+
+.chat-modal button:hover {
+  color: #2a8f47;
+  text-decoration: underline;
+}

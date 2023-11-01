@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cookieSession = require("cookie-session");
 const passport = require("passport");
 const bodyParser = require("body-parser");
+
 require("dotenv").config();
 
 // ensure proper order of operations with these imports
@@ -51,6 +52,7 @@ app.use(passport.session());
 require("./routes/oauthRoute")(app);
 require("./routes/userRoutes")(app);
 require("./routes/searchGithubRoute")(app);
+require("./routes/openAIRoute")(app);
 
 // Ensure production assets are served when hosted
 if (process.env.NODE_ENV === "production") {

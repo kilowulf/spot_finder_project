@@ -15,9 +15,10 @@ import {
   FETCH_USER,
   UPDATE_USER_PREFERENCES,
   STORE_SEARCH_RESULTS,
-  TRACK_PROJECT
+  TRACK_PROJECT,
+  ADD_USER_MESSAGE,
+  ADD_BOT_MESSAGE
 } from "./types";
-import { normalizeQueryResultData } from "../utils/normalizeQueryResultData";
 
 export const fetchUser = () => async dispatch => {
   // res = return updated user instance
@@ -98,3 +99,34 @@ export const trackProject = project => async (dispatch, getState) => {
     }
   });
 };
+
+// Chatbox Action makes call to backend service
+export const sendMessage = message => async dispatch => {
+  const response = await fetch("/api/ask", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ question: message })
+  });
+
+  const data = await response.json();
+  dispatch({ type: ADD_BOT_MESSAGE, payload: data.answer });
+
+  return data.answer;
+};
+// Chatbot action for user message retention
+export const addUserMessage = message => {
+  return {
+    type: ADD_USER_MESSAGE,
+    payload: message
+  };
+};
+// Chatbot action for bot message retention
+export const addBotMessage = message => {
+  return {
+    type: ADD_BOT_MESSAGE,
+    payload: message
+  };
+};
+

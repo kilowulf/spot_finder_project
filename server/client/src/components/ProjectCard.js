@@ -40,5 +40,4 @@ function ProjectCard({ project, projectsTracked }) {
     </div>
   );
 }
-
 export default ProjectCard;

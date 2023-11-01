@@ -31,5 +31,8 @@
     "passport-github2": "^0.1.12",
     "passport-oauth2": "^1.7.0",
     "react-scripts": "^5.0.1"
+  },
+  "devDependencies": {
+    "axios": "^1.6.0"
   }
 }

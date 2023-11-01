@@ -6,13 +6,14 @@ import Landing from "./Landing";
 import Profile from "./Profile";
 import SearchPage from "./SearchPage";
 import ProjectDetailsCard from "./ProjectDetailsCard";
+import Chatbot from "./Chatbot";
 // connect allows components to call action creators
 import { connect } from "react-redux";
 // import action creators
 import * as actions from "../actions";
 
-const Dashboard = () => <h2>Dashboard</h2>;
-const SurveyNew = () => <h2>SurveyNew</h2>;
+// const Dashboard = () => <h2>Dashboard</h2>;
+// const SurveyNew = () => <h2>SurveyNew</h2>;
 
 class App extends Component {
   // lifecycle method to call action creator
@@ -28,9 +29,6 @@ class App extends Component {
             <Route exact path="/" component={Landing} />
             <Route path="/profile" component={Profile} />
             <Route exact path="/searchpage" component={SearchPage} />
-
-            <Route exact path="/surveys" component={Dashboard} />
-            <Route path="/surveys/new" component={SurveyNew} />
             <Route
               path="/project/:projectId"
               render={props =>
@@ -41,6 +39,7 @@ class App extends Component {
                   {...props}
                 />}
             />
+            <Chatbot />
           </div>
         </BrowserRouter>
       </div>

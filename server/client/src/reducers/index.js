@@ -3,10 +3,12 @@ import authReducer from "./authReducer";
 import userPreferencesReducer from "./userPreferencesReducer";
 import storeSearchResults from "./searchResultsReducer";
 import projectsTrackedReducer from "./projectsTrackedReducer";
+import chatbotReducer from "./chatbotReducer";
 
 export default combineReducers({
   auth: authReducer,
   userPreferences: userPreferencesReducer,
   searchResults: storeSearchResults,
-  projectsTracked: projectsTrackedReducer
+  projectsTracked: projectsTrackedReducer,
+  chatbot: chatbotReducer
 });

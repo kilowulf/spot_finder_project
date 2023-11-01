@@ -2,7 +2,7 @@ const { createProxyMiddleware } = require("http-proxy-middleware"); // allows fo
 module.exports = function(app) {
   // allow local development http communications between frontend and backend
   app.use(
-    ["/api", "/auth/github", "/github-search"],
+    ["/api", "/auth/github", "/github-search", "/ask"],
     createProxyMiddleware({
       target: "http://localhost:5000"
     })

@@ -1,9 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { sendMessage, addUserMessage } from "../actions"; // Correct this path
 
 function Chatbot({ messages, sendMessage, addUserMessage, username }) {
   const [showChat, setShowChat] = useState(false);
+  const messagesEndRef = useRef(null); // Ref for the messages container
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();  // Scroll to bottom whenever messages update
+  }, [messages]); // The dependency array ensures useEffect is called whenever 'messages' changes
 
   const handleSendMessage = async message => {
     // Dispatch Redux action here.
@@ -19,10 +28,10 @@ function Chatbot({ messages, sendMessage, addUserMessage, username }) {
           </button>
         : <div className="chat-modal">
             <button
-              className="chat-modal-btn"
+              className="chat-modal-close-btn"
               onClick={() => setShowChat(false)}
             >
-              Close
+              Close (X)
             </button>
             <div className="messages">
               {messages.map((msg, index) =>
@@ -44,9 +53,11 @@ function Chatbot({ messages, sendMessage, addUserMessage, username }) {
                   >
                     {msg.text}
                   </p>
+                  <div ref={messagesEndRef} />
                 </div>
               )}
             </div>
+            
             <input
               type="text"
               onKeyDown={e => {
@@ -57,6 +68,7 @@ function Chatbot({ messages, sendMessage, addUserMessage, username }) {
               }}
               placeholder="Type your message..."
             />
+            <span className="powered-by">Powered by ChatGPT</span>
           </div>}
     </div>
   );

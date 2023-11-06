@@ -102,7 +102,7 @@ export const trackProject = project => async (dispatch, getState) => {
 
 // Chatbox Action makes call to backend service
 export const sendMessage = message => async dispatch => {
-  const response = await fetch("/api/ask", {
+  const response = await fetch("/api/openAI", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

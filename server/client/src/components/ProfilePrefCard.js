@@ -54,11 +54,11 @@ class ProfilePrefCard extends Component {
     if (this.state.isEditing) {
       return (
         <div className="user-preferences">
-          <div className="user-preferences-header">User Preferences</div>
+          <div className="user-preferences-header">Open Source Project Preferences</div>
 
           <div className="user-preferences-content">
             <label>
-              User Experience:
+              <span className="describer-text">User Experience:</span>
               <select
                 name="experienceLevel"
                 value={this.state.experienceLevel}
@@ -75,7 +75,7 @@ class ProfilePrefCard extends Component {
             </label>
 
             <div>
-              Languages:
+              <span className="describer-text">Languages:</span>
               <label>
                 <input
                   type="checkbox"
@@ -109,7 +109,7 @@ class ProfilePrefCard extends Component {
             </div>
 
             <div>
-              Frameworks:
+              <span className="describer-text">Frameworks:</span>
               <label>
                 <input
                   type="checkbox"
@@ -142,8 +142,8 @@ class ProfilePrefCard extends Component {
               </label>
             </div>
 
-            <button onClick={this.handleSave}>Save Preferences</button>
-            <button onClick={this.handleCancelPreferences}>Cancel</button>
+            <button className="user-preferences-save-btn" onClick={this.handleSave}>Save Preferences</button>
+            <button className="user-preferences-cancel-btn" onClick={this.handleCancelPreferences}>Cancel</button>
 
           </div>
         </div>
@@ -151,17 +151,17 @@ class ProfilePrefCard extends Component {
     } else {
       return (
         <div className="user-preferences">
-           <div className="user-preferences-header">User Preferences</div>
+           <div className="user-preferences-header">Open Source Project Preferences</div>
           <p>
-            User Experience: {this.state.experienceLevel}
+            <span className="describer-text">User Experience:</span> {this.state.experienceLevel}
           </p>
           <p>
-            Languages: {this.state.languages.join(", ")}
+            <span className="describer-text">Languages:</span> {this.state.languages.join(", ")}
           </p>
           <p>
-            Frameworks: {this.state.frameworks.join(", ")}
+            <span className="describer-text">Frameworks:</span> {this.state.frameworks.join(", ")}
           </p>
-          <button onClick={this.handleEditToggle}>
+          <button className="user-preferences-edit-btn" onClick={this.handleEditToggle}>
             Edit Preferences
           </button>
         </div>

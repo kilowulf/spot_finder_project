@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 module.exports = app => {
-  app.post("/api/ask", async (req, res) => {
+  app.post("/api/openAI", async (req, res) => {
     try {
       const response = await axios.post(
         "https://api.openai.com/v1/completions",

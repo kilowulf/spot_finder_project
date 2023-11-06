@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchUser, updateUserPreferences } from "../actions";
 import ProfilePrefCard from "./ProfilePrefCard";
+import ProfileProjCard from "./ProfileProjCard";
 
 class Profile extends Component {
   componentDidMount() {
@@ -126,6 +127,12 @@ class Profile extends Component {
 
   renderTrackedProjects() {
     // ... Implement the tracked projects section ...
+    const { auth } = this.props;
+    if (!auth || !auth.projectsTracked) return null;
+
+    return auth.projectsTracked.map((project, index) =>
+      <ProfileProjCard key={index} project={project} />
+    );
   }
 
   render() {
@@ -135,21 +142,17 @@ class Profile extends Component {
       return <div>Loading...</div>;
     }
 
-    return (
+    return (     
       <div className="profile-container mt-4">
-        {/* Left: User Profile Details */}
-        <div className="profile-left">
+        {/* Profile Details */}
+        <div className="profile-details-container">
           {this.renderProfileDetails()}
-        </div>
-
-        {/* Middle: User Preferences */}
-        <div className="profile-pref-container">
-          {/* Other components */}
+          {/* User Preferences just beneath Profile Details */}
           <ProfilePrefCard auth={auth} onSave={this.handleSavePreferences} />
         </div>
 
-        {/* Right: Tracked Projects */}
-        <div className="profile-right">
+        {/* Centered: Tracked Projects (Previously Middle) */}
+        <div className="profile-projects-container">
           {this.renderTrackedProjects()}
         </div>
       </div>

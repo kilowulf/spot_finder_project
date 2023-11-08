@@ -8,6 +8,7 @@ class ProfilePrefCard extends Component {
     experienceLevel: this.props.auth?.experienceLevel || "",
     languages: this.props.auth?.languages || [],
     frameworks: this.props.auth?.frameworks || []
+    
   };
 
   handleEditToggle = () => {
@@ -17,12 +18,13 @@ class ProfilePrefCard extends Component {
     }));
   };
 
+  // save changes mde in user preferences
   handleSave = () => {
     const { experienceLevel, languages, frameworks } = this.state;
     this.props.onSave({ experienceLevel, languages, frameworks });
     this.handleEditToggle();
   };
-
+  // 
   handlePreferenceChange = event => {
     const { name, value, type } = event.target;
     if (type === "checkbox") {
@@ -39,6 +41,7 @@ class ProfilePrefCard extends Component {
     }
   };
 
+  // Cancel button in user preferences modal
   handleCancelPreferences = () => {
     this.setState({
         experienceLevel: this.props.auth?.experienceLevel || "",
@@ -47,6 +50,9 @@ class ProfilePrefCard extends Component {
     });
     this.handleEditToggle();
 };
+
+
+
 
   renderUserPreferences() {
    if (!this.props.userPreferences && !this.props.auth) return null;

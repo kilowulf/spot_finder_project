@@ -5,6 +5,7 @@ import { sendMessage, addUserMessage } from "../actions"; // Correct this path
 function Chatbot({ messages, sendMessage, addUserMessage, username }) {
   const [showChat, setShowChat] = useState(false);
   const messagesEndRef = useRef(null); // Ref for the messages container
+ 
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -20,6 +21,10 @@ function Chatbot({ messages, sendMessage, addUserMessage, username }) {
     sendMessage(message);
   };
 
+  
+
+  
+
   return (
     <div className="chatbot">
       {!showChat
@@ -27,12 +32,14 @@ function Chatbot({ messages, sendMessage, addUserMessage, username }) {
             Open Chatbot
           </button>
         : <div className="chat-modal">
-            <button
+          <button
               className="chat-modal-close-btn"
               onClick={() => setShowChat(false)}
             >
               Close (X)
             </button>
+          <div className="resize-grip"></div>
+            
             <div className="messages">
               {messages.map((msg, index) =>
                 <div

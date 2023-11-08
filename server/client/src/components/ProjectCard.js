@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { RiStarSLine } from "react-icons/ri";
 
 function ProjectCard({ project, projectsTracked }) {
   // check for project in projectsTracked user object
@@ -33,6 +34,7 @@ function ProjectCard({ project, projectsTracked }) {
       <div className="project-stars">
         <span className="describer-text">stars: </span>
         {project.starCount}
+         <RiStarSLine />
       </div>
       {isTracked && <div className="feedback">Project Tracked</div>}
       {/* Add your feedback element here */}

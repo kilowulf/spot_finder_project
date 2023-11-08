@@ -50,4 +50,31 @@ module.exports = app => {
       res.status(500).send("Server error");
     }
   });
+
+  // Remove a tracked project from the user's profile
+  app.put("/api/untrack_project", async (req, res) => {
+    try {
+      if (!req.user) {
+        return res.status(401).send("User not logged in");
+      }
+
+      const user = await User.findOne({
+        githubId: req.user.githubId
+      });
+      if (!user) {
+        return res.status(404).send("User not found");
+      }
+
+      // Remove the project from the user's tracked projects
+      const projectId = req.body.projectId;
+      user.projectsTracked = user.projectsTracked.filter(
+        p => p.id !== projectId
+      );
+      await user.save();
+
+      res.status(200).send(user);
+    } catch (error) {
+      res.status(500).send("Server error");
+    }
+  });
 };

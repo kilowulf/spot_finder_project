@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { fetchUser, updateUserPreferences } from "../actions";
 import ProfilePrefCard from "./ProfilePrefCard";
 import ProfileProjCard from "./ProfileProjCard";
+import { HiArrowSmDown, HiArrowSmUp } from "react-icons/hi";
 
 class Profile extends Component {
   componentDidMount() {
@@ -23,8 +24,9 @@ class Profile extends Component {
     isEditingPreferences: false,
     experienceLevel: "",
     languages: [],
-    frameworks: []
-    // ... Add any other state fields you wish to edit ...
+    frameworks: [],
+    sortCategory: "createdAt", // default sort category
+    sortOrder: "ascending" // default sort order
   };
 
   /**renderProfileDetails:: Functions for handling profile details */
@@ -64,6 +66,77 @@ class Profile extends Component {
     // Assuming updateUserPreferences accepts a preferences object.
     this.props.updateUserPreferences(preferences);
   };
+
+  // Sort tracked projects
+  sortProjects = projects => {
+    const { sortCategory, sortOrder } = this.state;
+
+    const getValue = project => {
+      const value = project[sortCategory];
+      // Convert date strings to Date objects for comparison
+      if (sortCategory === "createdAt" || sortCategory === "latestMergedPR") {
+        return new Date(value);
+      }
+      // Convert to lowercase strings for case-insensitive comparison
+      if (typeof value === "string") {
+        return value.toLowerCase();
+      }
+      // Return the value as is for numbers
+      return value;
+    };
+
+    return projects.sort((a, b) => {
+      const valueA = getValue(a);
+      const valueB = getValue(b);
+
+      if (sortOrder === "ascending") {
+        if (valueA < valueB) return -1;
+        if (valueA > valueB) return 1;
+        return 0;
+      } else {
+        // descending
+        if (valueA > valueB) return -1;
+        if (valueA < valueB) return 1;
+        return 0;
+      }
+    });
+  };
+
+  // Sort Options::
+  renderSortOptions() {
+    return (
+      <div className="sort-options">
+        <h2>Projects Tracked</h2>
+        <div className="sort-controls">
+          <select
+            value={this.state.sortCategory}
+            onChange={e => this.setState({ sortCategory: e.target.value })}
+          >
+            <option value="" disabled>
+              Choose a field
+            </option>
+            <option value="createdAt">Created At</option>
+            <option value="latestMergedPR">Last Pull Request Date</option>
+            <option value="mentionableUsersCount">
+              Number of Contributors
+            </option>
+            {/* Add other sort categories as needed */}
+          </select>
+          <button onClick={() => this.setState({ sortOrder: "ascending" })}>
+            <HiArrowSmUp />
+          </button>
+          <button
+            onClick={() =>
+              this.setState({
+                sortOrder: "descending"
+              })}
+          >
+            <HiArrowSmDown />
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   /** renderUserPreferences:: Functions for handling user preferences */
 
@@ -125,13 +198,20 @@ class Profile extends Component {
     }
   }
 
+  // Tracked Projects::
   renderTrackedProjects() {
-    // ... Implement the tracked projects section ...
     const { auth } = this.props;
     if (!auth || !auth.projectsTracked) return null;
 
-    return auth.projectsTracked.map((project, index) =>
-      <ProfileProjCard key={index} project={project} />
+    const sortedProjects = this.sortProjects([...auth.projectsTracked]);
+
+    return sortedProjects.map((project, index) =>
+      <ProfileProjCard
+        key={index}
+        project={project}
+        sortCategory={this.state.sortCategory}
+        sortOrder={this.state.sortOrder}
+      />
     );
   }
 
@@ -142,7 +222,7 @@ class Profile extends Component {
       return <div>Loading...</div>;
     }
 
-    return (     
+    return (
       <div className="profile-container mt-4">
         {/* Profile Details */}
         <div className="profile-details-container">
@@ -150,9 +230,12 @@ class Profile extends Component {
           {/* User Preferences just beneath Profile Details */}
           <ProfilePrefCard auth={auth} onSave={this.handleSavePreferences} />
         </div>
+        {/*Top component: placeholder */}
 
         {/* Centered: Tracked Projects (Previously Middle) */}
         <div className="profile-projects-container">
+          {/* Sorting Options */}
+          {this.renderSortOptions()}
           {this.renderTrackedProjects()}
         </div>
       </div>

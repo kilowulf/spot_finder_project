@@ -6,3 +6,4 @@ export const TRACK_PROJECT = "TRACK_PROJECT";
 // export const ADD_MESSAGE = "ADD_MESSAGE";
 export const ADD_BOT_MESSAGE = "ADD_BOT_MESSAGE"; 
 export const ADD_USER_MESSAGE = "ADD_USER_MESSAGE"; 
+export const UNTRACK_PROJECT = "UNTRACK_PROJECT";

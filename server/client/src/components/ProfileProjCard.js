@@ -1,7 +1,13 @@
-// ProjectCard.js
 import React, { useState } from "react";
-
-const ProfileProjCard = ({ project }) => {
+import { connect } from "react-redux";
+import { untrackProject } from "../actions";
+import { RiDeleteBinLine } from "react-icons/ri";
+const ProfileProjCard = ({
+  project,
+  untrackProject,
+  sortCategory,
+  sortOrder
+}) => {
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   const toggleCollapse = () => {
@@ -16,6 +22,27 @@ const ProfileProjCard = ({ project }) => {
     setIssuesListVisible(!issuesListVisible);
   };
 
+  // untrack project handler
+  const handleUntrackClick = event => {
+    event.stopPropagation();
+    untrackProject(project.id);
+  };
+
+  // Sort value displays in dynamic element
+  const getSortValue = () => {
+    if (sortCategory === "createdAt") {
+      return new Date(project[sortCategory]).toLocaleDateString();
+    } else if (sortCategory === "latestMergedPR") {
+      return project.latestMergedPR
+        ? new Date(project.latestMergedPR).toLocaleDateString()
+        : "Not available";
+    } else if (sortCategory === "mentionableUsersCount") {
+      return project.mentionableUsersCount;
+    } else if (sortCategory === "starCount") {
+      return project.starCount;
+    }
+  };
+
   return (
     <div className="profile-project-card">
       <div className="profile-project-header" onClick={toggleCollapse}>
@@ -23,9 +50,14 @@ const ProfileProjCard = ({ project }) => {
           {project.name}
         </h3>
         <p>
-          <span className="describer-text">Created: </span>
-          {new Date(project.createdAt).toLocaleDateString()}
+          <span className="describer-text">
+            {sortCategory}:{" "}
+          </span>
+          {getSortValue()}
         </p>
+        <button onClick={event => handleUntrackClick(event)}>
+          <RiDeleteBinLine />
+        </button>
       </div>
 
       {!isCollapsed &&
@@ -74,4 +106,4 @@ const ProfileProjCard = ({ project }) => {
   );
 };
 
-export default ProfileProjCard;
+export default connect(null, { untrackProject })(ProfileProjCard);

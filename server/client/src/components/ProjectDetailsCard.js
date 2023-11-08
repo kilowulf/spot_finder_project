@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { trackProject } from "../actions";
+import { trackProject, fetchUser } from "../actions";
 import { connect } from "react-redux";
+import { RiStarSLine } from "react-icons/ri";
 
 function ProjectDetailsCard() {
   const { projectId } = useParams();
@@ -46,6 +47,7 @@ function ProjectDetailsCard() {
     if (project && !localIsTracked) {
       dispatch(trackProject(project)).then(() => {
         setLocalIsTracked(true);
+        dispatch(fetchUser());
       });
     }
   };
@@ -55,7 +57,8 @@ function ProjectDetailsCard() {
     return <div>Project not found!</div>;
   }
 
-  return <div className="project-details">
+  return (
+    <div className="project-details">
       <h2>
         {project.name}
       </h2>
@@ -85,9 +88,8 @@ function ProjectDetailsCard() {
 
       <div className="project-contributing-guidelines">
         <p>
-          <span className="describer-text">
-            Contributing Guidelines:
-          </span> {project.contributingGuidelinesBody || "Not available"}
+          <span className="describer-text">Contributing Guidelines:</span>{" "}
+          {project.contributingGuidelinesBody || "Not available"}
         </p>
       </div>
 
@@ -100,9 +102,8 @@ function ProjectDetailsCard() {
 
       <div className="project-archived-status">
         <p>
-          <span className="describer-text">
-            Is Archived:{" "}
-          </span> {project.isArchived ? "Yes" : "No"}
+          <span className="describer-text">Is Archived: </span>{" "}
+          {project.isArchived ? "Yes" : "No"}
         </p>
       </div>
 
@@ -110,6 +111,7 @@ function ProjectDetailsCard() {
         <p>
           <span className="describer-text">Stars: </span>
           {project.starCount}
+          <RiStarSLine />
         </p>
       </div>
 
@@ -153,7 +155,9 @@ function ProjectDetailsCard() {
       <div className="project-latest-merged-pr">
         <p>
           <span className="describer-text">Latest Merged PR Date: </span>
-          {project.latestMergedPR ? new Date(project.latestMergedPR).toLocaleDateString() : "Not available"}
+          {project.latestMergedPR
+            ? new Date(project.latestMergedPR).toLocaleDateString()
+            : "Not available"}
         </p>
       </div>
 
@@ -167,26 +171,30 @@ function ProjectDetailsCard() {
         </p>
       </div>
 
-      {issuesListVisible && <div className="project-issues-list">
+      {issuesListVisible &&
+        <div className="project-issues-list">
           <p>
             <span className="describer-text">Issues:</span>
           </p>
           <ul>
-            {project.issues && project.issues.length > 0 ? project.issues.map(
-                  (issue, index) =>
-                    <li key={index}>
-                      {issue.body}
-                    </li>
-                ) : <li>No issues available</li>}
+            {project.issues && project.issues.length > 0
+              ? project.issues.map((issue, index) =>
+                  <li key={index}>
+                    {issue.body}
+                  </li>
+                )
+              : <li>No issues available</li>}
           </ul>
         </div>}
 
-      {auth && (localIsTracked ? <button className="button-disabled" disabled>
+      {auth &&
+        (localIsTracked
+          ? <button className="button-disabled" disabled>
               Project Tracked
-            </button> : <button onClick={handleTrackProject}>
-              Track Project
-            </button>)}
-    </div>;
+            </button>
+          : <button onClick={handleTrackProject}>Track Project</button>)}
+    </div>
+  );
 }
 
 const mapStateToProps = state => {

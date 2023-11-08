@@ -17,7 +17,8 @@ import {
   STORE_SEARCH_RESULTS,
   TRACK_PROJECT,
   ADD_USER_MESSAGE,
-  ADD_BOT_MESSAGE
+  ADD_BOT_MESSAGE,
+  UNTRACK_PROJECT
 } from "./types";
 
 export const fetchUser = () => async dispatch => {
@@ -100,6 +101,21 @@ export const trackProject = project => async (dispatch, getState) => {
   });
 };
 
+// Remove Project from projectsTracked array property of user object
+export const untrackProject = projectId => async (dispatch, getState) => {
+  try {
+    const res = await axios.put("/api/untrack_project", { projectId });
+
+    dispatch({
+      type: UNTRACK_PROJECT,
+      payload: res.data.projectsTracked
+    });
+    dispatch(fetchUser());
+  } catch (error) {
+    console.error("Error un-tracking project:", error);
+  }
+};
+
 // Chatbox Action makes call to backend service
 export const sendMessage = message => async dispatch => {
   const response = await fetch("/api/openAI", {
@@ -129,4 +145,3 @@ export const addBotMessage = message => {
     payload: message
   };
 };
-

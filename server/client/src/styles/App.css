@@ -10,7 +10,7 @@
 
 /* General styling for the navbar background */
 .custom-navbar {
-  background-color: rgba(50, 51, 56, 0.956); /* light blue */
+  background-color: rgba(45, 44, 44, 0.956); /* light blue */
   border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* subtle bottom border */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* subtle shadow to give depth */
 }
@@ -39,9 +39,9 @@
 .navbar-light .nav-link.active {
   color: white;
   background-color: rgba(
-    255,
-    255,
-    255,
+    47,
+    45,
+    45,
     0.2
   ); /* slight white background to highlight active state */
 }
@@ -61,22 +61,22 @@
 
 .sub-navbar {
   background-color: white;
-  color: #333; /* light grey */
+  color: #3d0b0b; /* light grey */
   margin-top: 4px; /* add a bit of margin on the top */
 }
 /* Setting base color for .nav-link under .sub-navbar */
 .sub-navbar .nav-link {
-  color: #333;
+  color: #f1efef;
 }
 
 /* Ensuring visited .nav-link elements under .sub-navbar retain the dark color */
 
 .sub-navbar .nav-link:visited {
-  color: #333;
+  color: #d7d2d2;
 }
 /* Setting hover state for .nav-link under .sub-navbar */
 .sub-navbar .nav-link:hover {
-  color: #555; /* Slightly lighter for hover effect */
+  color: #f5f1f1; /* Slightly lighter for hover effect */
 }
 
 /* Profile Component styling */
@@ -335,7 +335,7 @@
 
 .profile-project-header p {
   /* If you want the paragraph to be flexible as well: */
-  flex-grow:  0;/* Adjust as needed, or remove if fixed width is desired */
+  flex-grow: 0; /* Adjust as needed, or remove if fixed width is desired */
   margin: 0; /* Remove default margin */
   /* Ensure there's some margin to separate it from the next element */
   margin-right: 12px;
@@ -855,6 +855,11 @@
 
 /* Chatbot Modal styling */
 /* Chatbot Open Button */
+
+.chatbot {
+  position: fixed;
+  cursor: move;
+}
 .chatbot-trigger {
   position: fixed;
   bottom: 30px;
@@ -875,22 +880,26 @@
 
 /* Chatbot Modal Styles */
 .chat-modal {
-  position: absolute;
-  bottom: 70px;
-  right: 20px;
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Stack children vertically */
+  justify-content: space-between; /* Space between messages and input */
+  position: relative;
   width: 300px;
-  max-height: 400px;
+  min-width: 200px; /* Minimum width */
+  max-width: 600px; /* Maximum width */
+  min-height: 200px; /* Minimum height */
+  max-height: 600px; /* Maximum height */
   overflow-y: auto;
   z-index: 1001;
   background-color: #fff;
   border: 1px solid #e1e4e8;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  resize: both;
-  /* overflow: auto; */
+  resize: both; /* Adjust as needed */
 }
 
 .chat-modal .messages {
+  flex-grow: 1;
   position: relative;
   padding: 10px;
   max-height: 300px;
@@ -906,7 +915,15 @@
   border-radius: 0 0 8px 8px; /* rounded bottom corners */
 }
 
+/* Input and Powered-by Container */
+.chat-modal .input-container {
+  border-top: 1px solid #e1e4e8; /* Line above input */
+}
+
 .chat-modal button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
   border: none;
   background: none;
   color: inherit;
@@ -923,20 +940,30 @@
 }
 
 .chat-modal .chat-modal-close-btn {
-  position: relative;
+  position: absolute;
   top: 5px; /* Adjust as needed */
-  left: 239px; /* Adjust as needed */
-  bottom: 3px;
-  font-size: 11px; /* Adjust font size as needed */
-  padding: 0px 5px 0px; /* Adjust padding as needed */
+  right: 5px; /* Adjust as needed */
+  border: none;
+  background: none;
+  color: inherit;
+  /* font: inherit; */
+  z-index: 1002;
+  font-size: 11px;
+  padding: 1px 4px;
+  outline: inherit;
+  transition: color 0.3s ease;
   cursor: pointer; /* Changes the cursor to a pointer to indicate it's clickable */
 }
+.chat-modal .chat-modal-close-btn:hover {
+  color: #2a8f47;
+  text-decoration: underline;
+}
+
 .chat-modal .powered-by {
-  display: block; /* Makes the span a block element to occupy its own line */
-  text-align: center; /* Centers the text */
-  font-size: 0.7em; /* Smaller font size for the powered by text */
-  margin-top: 10px; /* Adds space between the input field and the powered by text */
-  color: #888; /* Optional: sets a lighter color for the powered by text */
+  text-align: center;
+  font-size: 0.7em;
+  margin: 10px 0;
+  color: #888;
 }
 
 .user-message {

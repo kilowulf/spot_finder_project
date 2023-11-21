@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.890ab293.css",
-    "main.js": "/static/js/main.56b0d2d5.js",
+    "main.css": "/static/css/main.ce71b0ce.css",
+    "main.js": "/static/js/main.fe8ba498.js",
     "static/media/spotfinder_logo_large.jpg": "/static/media/spotfinder_logo_large.5b41d0f8e127b3dfe7c5.jpg",
     "static/media/spotfinder_logo_inverse_color_drk_lt.jpg": "/static/media/spotfinder_logo_inverse_color_drk_lt.2d554ed67c2c045d3845.jpg",
     "index.html": "/index.html",
-    "main.890ab293.css.map": "/static/css/main.890ab293.css.map",
-    "main.56b0d2d5.js.map": "/static/js/main.56b0d2d5.js.map"
+    "main.ce71b0ce.css.map": "/static/css/main.ce71b0ce.css.map",
+    "main.fe8ba498.js.map": "/static/js/main.fe8ba498.js.map"
   },
   "entrypoints": [
-    "static/css/main.890ab293.css",
-    "static/js/main.56b0d2d5.js"
+    "static/css/main.ce71b0ce.css",
+    "static/js/main.fe8ba498.js"
   ]
 }

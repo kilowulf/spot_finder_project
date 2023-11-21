@@ -3,7 +3,7 @@
 }
 
 .spotfinder-logo {
-  width: 3%;
+  width: 4%;
   height: auto;
   margin-right: 5px;
 }
@@ -11,39 +11,20 @@
 /* General styling for the navbar background */
 .custom-navbar {
   background-color: rgba(45, 44, 44, 0.956); /* light blue */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* subtle bottom border */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* subtle shadow to give depth */
 }
 
 /* White text for the navbar brand and links */
-.navbar-light .navbar-brand,
-.navbar-light .nav-link {
+.custom-navbar .navbar-light .navbar-brand,
+.custom-navbar .navbar-light .nav-link {
   color: white;
 }
 
-.nav-brand:visited {
+.navbar-brand span:hover {
   color: white;
 }
 
-.navbar-light .nav-link:visited {
-  /* Add :visited to ensure visited links are white too */
+.navbar-brand span {
   color: white;
-}
-
-/* Slightly lighter color on hover for better UX */
-.navbar-light .nav-link:hover {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-/* If you want to add active states (i.e., when a nav link is the current page) */
-.navbar-light .nav-link.active {
-  color: white;
-  background-color: rgba(
-    47,
-    45,
-    45,
-    0.2
-  ); /* slight white background to highlight active state */
 }
 
 /* Header Component: profile link /img*/
@@ -54,30 +35,48 @@
   margin-right: 8px;
 }
 
-.nav-item-profile {
+.nav-top .nav-link-log {
+  color: white;
+  margin-left: 8px;
+}
+
+.nav-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Adjust the height as needed */
+}
+
+.nav-link-top {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  height: 100%;
+}
+
+.nav-item {
   display: flex;
   align-items: center;
 }
 
-.sub-navbar {
-  background-color: white;
-  color: #3d0b0b; /* light grey */
-  margin-top: 4px; /* add a bit of margin on the top */
+.nav-top .nav-link-top {
+  color: #f4f2f2;
+  font-size: 13px;
 }
+
 /* Setting base color for .nav-link under .sub-navbar */
-.sub-navbar .nav-link {
-  color: #f1efef;
+.nav-link:hover {
+  color: #f3efef;
+}
+
+.nav-top .nav-link-top .github-icon {
+  margin-right: 9px;
+  /* width: auto; */
+  font-size: 20px;
 }
 
 /* Ensuring visited .nav-link elements under .sub-navbar retain the dark color */
-
-.sub-navbar .nav-link:visited {
-  color: #d7d2d2;
-}
-/* Setting hover state for .nav-link under .sub-navbar */
-.sub-navbar .nav-link:hover {
-  color: #f5f1f1; /* Slightly lighter for hover effect */
-}
 
 /* Profile Component styling */
 .profile-container {

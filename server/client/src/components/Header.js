@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import logo from "../img/spotfinder_logo_inverse_color_drk_lt.jpg";
+import { VscGithubInverted } from "react-icons/vsc";
 
 class Header extends Component {
   renderContent() {
@@ -10,27 +11,28 @@ class Header extends Component {
         return;
       case false:
         return (
-          <li className="nav-item">
-            <a className="nav-link" href="/auth/github">
-              Login With GitHub
+          <li className="nav-top">
+            <a className="nav-link-top" href="/auth/github">
+              <VscGithubInverted className="github-icon" />
+              Login with GitHub
             </a>
           </li>
         );
       default:
         return [
-          <li className="nav-item d-flex align-items-center" key="1">
+          <li className="nav-top d-flex align-items-center" key="1">
             <img
               src={this.props.auth.avatarImgUrl}
               alt={this.props.auth.username}
               className="user-profile-image"
             />
-            <Link to="/profile" className="nav-link">
+            <Link to="/profile" className="nav-link-top">
               {this.props.auth.username}
             </Link>
           </li>,
-          <li className="nav-item" key="2">
+          <li className="nav-top" key="2">
             <a
-              className="nav-link"
+              className="nav-link-log"
               href="/api/logout"
               style={{ fontSize: "12px", marginTop: "4px" }}
             >
@@ -43,17 +45,17 @@ class Header extends Component {
 
   renderSubNavbar() {
     return (
-      <nav className="navbar sub-navbar navbar-expand-lg navbar-light">
+      <nav className="navbar navbar-expand-lg navbar-light">
         <div className="container">
           <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <Link to="/searchpage" className="nav-link">
+            <li>
+              <Link to="/search-page" className="nav-link">
                 Search Projects
               </Link>
             </li>
-            <li className="nav-item">
-              <Link to="/someRoute2" className="nav-link">
-                Glossary
+            <li>
+              <Link to="/help-page" className="nav-link">
+                Help
               </Link>
             </li>
             {/* Add more links as needed */}
@@ -75,9 +77,9 @@ class Header extends Component {
                 alt="SpotFinder Logo"
                 className="spotfinder-logo"
               />
-              SpotFinder
+              <span>SpotFinder</span>
             </Link>
-            <ul className="navbar-nav ml-auto navbar-light">
+            <ul className="navbar-nav ml-auto ">
               {" "}{/* ml-auto to push content to the right */}
               {this.renderContent()}
             </ul>

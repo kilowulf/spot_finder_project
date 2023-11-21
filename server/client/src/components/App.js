@@ -28,7 +28,7 @@ class App extends Component {
             <Header />
             <Route exact path="/" component={Landing} />
             <Route path="/profile" component={Profile} />
-            <Route exact path="/searchpage" component={SearchPage} />
+            <Route exact path="/search-page" component={SearchPage} />
             <Route
               path="/project/:projectId"
               render={props =>

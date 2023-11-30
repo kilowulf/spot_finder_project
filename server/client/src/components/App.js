@@ -7,6 +7,7 @@ import Profile from "./Profile";
 import SearchPage from "./SearchPage";
 import ProjectDetailsCard from "./ProjectDetailsCard";
 import Chatbot from "./Chatbot";
+import {fetchRecommendedProjectsUtil} from "../utils/fetchRecommendedProjectsUtil";
 // connect allows components to call action creators
 import { connect } from "react-redux";
 // import action creators
@@ -16,9 +17,20 @@ import * as actions from "../actions";
 // const SurveyNew = () => <h2>SurveyNew</h2>;
 
 class App extends Component {
+  // set state for recommended projects
+  state = {
+    recommendedProjects: []
+  };
   // lifecycle method to call action creator
   componentDidMount() {
-    this.props.fetchUser();
+    this.props.fetchUser().then(() => {
+      if (this.props.auth) {
+        fetchRecommendedProjectsUtil(this.props.auth, this.props.searchRecommendedProjects)
+          .then(recommendedProjects => {
+            this.setState({ recommendedProjects });
+          });
+      }    
+    });    
   }
   render() {
     return (
@@ -28,7 +40,11 @@ class App extends Component {
             <Header />
             <Route exact path="/" component={Landing} />
             <Route path="/profile" component={Profile} />
-            <Route exact path="/search-page" component={SearchPage} />
+            <Route exact path="/search-page" render={() => (
+              <SearchPage 
+                recommendedProjects={this.props.recommendedProjects} 
+              />
+            )} />
             <Route
               path="/project/:projectId"
               render={props =>
@@ -49,7 +65,9 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    username: state.auth?.username ? state.auth.displayname : "User"
+    username: state.auth?.username ? state.auth.displayname : "User",
+    auth: state.auth,
+    recommendedProjects: state.recommendedProjects
   };
 };
 

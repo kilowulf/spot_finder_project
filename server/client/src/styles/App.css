@@ -430,6 +430,70 @@
 
 /*SearchPage Component styling*/
 /* Additional SearchPage styling */
+/* Recommended Projects: */
+.recommended-projects {
+  border: 1px solid #e1e4e8;
+  border-radius: 5px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.recommended-projects div:last-child {
+  border-bottom: #000;
+}
+
+.recommended-projects div {
+  padding: 4px 0;
+  /* border-bottom: 1px solid #e1e4e8; */
+}
+/* Adjust the carousel window height */
+.slick-slider {
+  max-height: 200px; /* Adjust this value as needed */
+}
+
+/* Style for the previous button */
+.recommended-projects .slick-prev {
+  left: -30px; /* Adjust this value as needed for alignment */
+  z-index: 1;
+}
+
+/* Style for the next button */
+.recommended-projects .slick-next {
+  right: -30px; /* Adjust this value as needed for alignment */
+  z-index: 1;
+}
+
+.recommended-project-description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* Number of lines you want to display */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2em; /* Adjust as needed */
+  max-height: 3.6em; /* Line-height multiplied by line number */
+  margin: 0; /* Adjust or remove as needed */
+  max-width: 250px;
+}
+
+/* General style adjustments for the buttons */
+.recommended-projects .slick-prev,
+.recommended-projects .slick-next {
+  width: 45px; /* Adjust the width */
+  height: 40px; /* Adjust the height */
+  background-color: #544b4b; /* Background color */
+  border-radius: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Style adjustments for the icons inside the buttons */
+.slick-prev:before,
+.slick-next:before {
+  font-size: 20px; /* Adjust the icon size */
+  color: #000; /* Icon color */
+  opacity: 1;
+}
 
 /* Container styling for the search page */
 .search-page {
@@ -443,6 +507,7 @@
   display: flex;
   align-items: center; /* this ensures vertical alignment of the input and button */
   width: 100%; /* optional, to take up full available width */
+  padding-top: 20px;
 }
 
 .search-container input {
@@ -483,6 +548,9 @@
   padding: 10px;
   margin-top: 10px;
   border-radius: 5px;
+}
+.search-params-container h3 {
+  margin-left: 13px;
 }
 
 .search-params {
@@ -664,23 +732,15 @@
   border-radius: 5px;
   padding: 9px 5px 5px;
   margin-top: 20px;
-}
-.recommended-projects {
-  border: 1px solid #e1e4e8;
-  border-radius: 5px;
-  padding: 20px;
-  margin-top: 20px;
+  margin-bottom: 70px;
 }
 
-.search-results div,
-.recommended-projects div {
-  padding: 10px 0;
-  /* border-bottom: 1px solid #e1e4e8; */
+.search-results div {
+  padding: 4px 0;
 }
 
-.search-results div:last-child,
-.recommended-projects div:last-child {
-  border-bottom: none;
+.search-results div:last-child {
+  border-bottom: #000;
 }
 
 /* Project Card Styling*/
@@ -688,7 +748,7 @@
   display: grid;
   /* flex-direction: column; */
   grid-template-columns: repeat(3, 1fr); /* 3 columns of equal width */
-  grid-gap: 10px;
+  grid-gap: 5px;
   border: 1px solid #e1e4e8; /* You can adjust this if you want another border style/color */
   border-radius: 5px;
   margin-bottom: 20px;
@@ -696,7 +756,7 @@
   padding: 20px;
 }
 .project-container h3 {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   font-size: 2.2rem;
   padding-left: 10px;
 }
@@ -711,13 +771,20 @@
 }
 
 .project-container > div {
-  margin: 10px 0;
+  margin: 5px 0;
   font-size: 1rem;
   padding-left: 20px;
 }
 
 .project-description {
-  margin-left: 12px;
+  margin-left: 10px;
+}
+
+.project-createdAt,
+.project-latestPull,
+.project-contributors,
+.project-stars {
+  padding-left: 5px; /* Decreased from 20px if needed */
 }
 
 .project-container .feedback {
@@ -726,6 +793,12 @@
 
   font-weight: bold;
   grid-column: span 3;
+}
+
+.project-star-icon {
+  padding-bottom: 1px;
+  color: rgb(186, 63, 238);
+  margin-right: 2px;
 }
 
 .describer-text {

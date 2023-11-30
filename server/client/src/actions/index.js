@@ -18,7 +18,8 @@ import {
   TRACK_PROJECT,
   ADD_USER_MESSAGE,
   ADD_BOT_MESSAGE,
-  UNTRACK_PROJECT
+  UNTRACK_PROJECT,
+  UPDATE_RECOMMENDED_PROJECTS
 } from "./types";
 
 export const fetchUser = () => async dispatch => {
@@ -60,11 +61,38 @@ export const searchProjects = params => async dispatch => {
     // );
 
     const flattenedResults = response.data.data;
+    console.log("flattenedResults", flattenedResults);
 
     // Log to ensure we are dispatching the right data
     //console.log("Extracted repositories:", repositories);
 
     dispatch({ type: STORE_SEARCH_RESULTS, payload: flattenedResults });
+    
+    console.log("Dispatching search results: ", flattenedResults);
+  } catch (error) {
+    // Handle errors accordingly.
+    console.log("Error from searchProjects action f", error);
+  }
+};
+
+// Search action to GraphQL / Github Service - github API call
+export const searchRecommendedProjects = params => async dispatch => {
+  try {
+    // Assuming backend will form the GraphQL query based on provided parameters.
+    const response = await axios.post("/api/github_search", params);
+    // Extract repositories from the response
+    // const repositories = response.data.edges.map(edge => edge.node);
+    // const flattenedResults = normalizeQueryResultData(
+    //   response.data.data.search.edges
+    // );
+
+    const flattenedResults = response.data.data;
+    console.log("flattenedResults", flattenedResults);
+
+    // Log to ensure we are dispatching the right data
+    //console.log("Extracted repositories:", repositories);
+    
+    dispatch({ type: UPDATE_RECOMMENDED_PROJECTS, payload: flattenedResults });
     console.log("Dispatching search results: ", flattenedResults);
   } catch (error) {
     // Handle errors accordingly.
@@ -99,6 +127,14 @@ export const trackProject = project => async (dispatch, getState) => {
       reject(error);
     }
   });
+};
+
+// Update Recommended Projects
+export const updateRecommendedProjects = projects => {
+  return {
+    type: UPDATE_RECOMMENDED_PROJECTS,
+    payload: projects
+  };
 };
 
 // Remove Project from projectsTracked array property of user object

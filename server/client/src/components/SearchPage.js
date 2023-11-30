@@ -4,27 +4,47 @@ import {
   BiSolidChevronDownSquare
 } from "react-icons/bi";
 import { connect } from "react-redux";
-import { fetchUser, searchProjects } from "../actions";
+import { fetchUser, searchProjects, recommendedProjects } from "../actions";
 import { constructSearchTerm } from "../utils/constructSearchQuery";
 import ProjectCard from "./ProjectCard";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import RecommendedProjectCard from "./RecommendedProjCard";
 
-const SearchPage = ({ auth, searchProjects, searchResults }) => {
+const SearchPage = ({
+  auth,
+  searchProjects,
+  searchResults,
+  fetchUser,
+  recommendedProjects
+}) => {
   console.log("auth object in searchPage", auth);
   const buttonColor = "#2ea44f";
   // state setting
   const [searchTerm, setSearchTerm] = useState("");
+  const [userData, setUserData] = useState(null);
   const [searching, setSearching] = useState(false);
   const [languages, setLanguages] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState(null);
   const [frameworks, setFrameworks] = useState([]);
   const [selectedFramework, setSelectedFramework] = useState(null);
-  const [recommendedProjects, setRecommendedProjects] = useState([]);
+  // const [recommendedProjects, setRecommendedProjects] = useState([]);
   const [selectedIssueLabels, setSelectedIssueLabels] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
   const [sortField, setSortField] = useState("");
   const [sortOrder, setSortOrder] = useState("asc"); // asc or desc
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 10; // or any other number you desire
+
+  // Carousel Element sSettings
+  const carouselSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 3
+  };
 
   // handle sorting of returned data
   const sortResults = results => {
@@ -49,30 +69,27 @@ const SearchPage = ({ auth, searchProjects, searchResults }) => {
     setHasSearched(true);
     // get updated current user object for projectTracked property
     fetchUser();
+
     // Construct the full search term using the selected language and framework
     const fullSearchTerm = constructSearchTerm({
       language: selectedLanguage,
       framework: selectedFramework
     });
-
+    console.log("language: " + selectedLanguage);
+    console.log("framework: " + selectedFramework);
     // Prepare parameters for the search
     const params = {
       searchTerm: fullSearchTerm,
       issueLabels: selectedIssueLabels
     };
+    console.log("fullQueryParams", params);
+    console.log("issueLabels: ", selectedIssueLabels);
 
     // Use the searchProjects Redux action to fetch the results
     await searchProjects(params);
+    console.log("searchProjects", searchProjects);
     //console.log("searchResults", searchResults);
     setSearching(false);
-  };
-
-  const fetchRecommendedProjects = async () => {
-    // Fetch projects based on user's profile or chosen technologies and frameworks
-    // Update recommendedProjects.
-    // This is just a placeholder.
-    // const response = await axios.get("YOUR_RECOMMENDED_PROJECTS_ENDPOINT_HERE");
-    // setRecommendedProjects(response.data);
   };
 
   useEffect(() => {
@@ -97,24 +114,27 @@ const SearchPage = ({ auth, searchProjects, searchResults }) => {
       "Flask",
       "NextJs"
     ]);
-
-    fetchRecommendedProjects();
   }, []);
 
   return (
     <div className="search-page">
-      {/* Search Input */}
-      <div className="search-container">
-        <input
-          value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
-          placeholder="Search Open Source Projects..."
-        />
-        <button onClick={handleSearch}>Search</button>
-      </div>
+      {/* Recommended Projects Section */}
+      {auth &&
+        <div className="recommended-projects">
+          <h3>Recommended Projects</h3>
+          <Slider {...carouselSettings}>
+            {recommendedProjects.map(project =>
+              <div key={project.id}>
+                <RecommendedProjectCard project={project} />
+              </div>
+            )}
+          </Slider>
+        </div>}
 
       {/* Search Parameters Section */}
       <div className="search-params-container">
+        <h3>Search Preferences</h3>
+        <br />
         <h4>Languages</h4>
         <div className="search-params">
           {languages.map(lang =>
@@ -178,17 +198,15 @@ const SearchPage = ({ auth, searchProjects, searchResults }) => {
           )}
         </div>
       </div>
-
-      {/* Recommended Projects Section */}
-      {auth &&
-        <div className="recommended-projects">
-          <h3>Recommended Projects</h3>
-          {recommendedProjects.map(project =>
-            <div key={project.id}>
-              {project.name}
-            </div>
-          )}
-        </div>}
+      {/* Search Input */}
+      <div className="search-container">
+        <input
+          value={searchTerm}
+          onChange={e => setSearchTerm(e.target.value)}
+          placeholder="Search Open Source Projects..."
+        />
+        <button onClick={handleSearch}>Search</button>
+      </div>
 
       {/* Search Results Section */}
 
@@ -273,9 +291,9 @@ const SearchPage = ({ auth, searchProjects, searchResults }) => {
   );
 };
 
-function mapStateToProps({ auth, searchResults }) {
+function mapStateToProps({ auth, searchResults, recommendedProjects }) {
   // Grab the auth state
-  return { auth, searchResults };
+  return { auth, searchResults, recommendedProjects };
 }
 
 export default connect(mapStateToProps, { fetchUser, searchProjects })(

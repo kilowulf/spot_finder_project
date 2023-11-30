@@ -1,6 +1,13 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchUser, updateUserPreferences } from "../actions";
+import {
+  fetchUser,
+  updateUserPreferences,
+  searchRecommendedProjects,
+  updateRecommendedProjects
+} from "../actions";
+
+import { fetchRecommendedProjectsUtil } from "../utils/fetchRecommendedProjectsUtil";
 import ProfilePrefCard from "./ProfilePrefCard";
 import ProfileProjCard from "./ProfileProjCard";
 import { HiArrowSmDown, HiArrowSmUp } from "react-icons/hi";
@@ -13,8 +20,69 @@ class Profile extends Component {
         languages: this.props.auth.languages || [],
         frameworks: this.props.auth.frameworks || []
       });
+      fetchRecommendedProjectsUtil(
+        this.props.auth,
+        this.props.searchRecommendedProjects
+      );
     });
   }
+
+  // fetch recommended projects
+  // fetchRecommendedProjects = async () => {
+  //   // Extract user preferences
+  //   // const { experienceLevel, languages, frameworks } = this.state;
+  //   const userExperienceLevel = this.props.auth.experienceLevel;
+  //   const userFrameworks = this.props.auth.frameworks;
+  //   const userLanguages = this.props.auth.languages;
+  //   console.log("state object", userExperienceLevel);
+
+  //   if (!userLanguages || !userFrameworks || !userExperienceLevel) {
+  //     console.error("Missing user data for fetching recommended projects.");
+  //     return;
+  //   }
+
+  //   // Randomly select preferences ensuring compatibility
+  //   const selectedLanguage =
+  //     userLanguages[Math.floor(Math.random() * userLanguages.length)];
+  //   const selectedFramework =
+  //     userFrameworks[Math.floor(Math.random() * userFrameworks.length)];
+
+  //   // set issueLabels by experience level
+  //   let issueLabels = [];
+  //   if (userExperienceLevel === "Beginner") {
+  //     issueLabels = ["good first issue"];
+  //   } else if (userExperienceLevel === "Experienced") {
+  //     const labels = ["help wanted", "Bug", "Effort: Casual"];
+  //     issueLabels = [labels[Math.ceil(Math.random() * labels.length)]];
+  //   } else if (userExperienceLevel === "Professional") {
+  //     const labels = [
+  //       "Design Limitation",
+  //       "Suggestion",
+  //       "Possible Improvement",
+  //       "Experimentation Needed"
+  //     ];
+  //     issueLabels = [labels[Math.ceil(Math.random() * labels.length)]];
+  //   }
+  //   // Construct search query
+  //   console.log("issueLabels: ", issueLabels);
+  //   console.log("selectedLanguage", selectedLanguage);
+  //   console.log("selectedFramework", selectedFramework);
+  //   // Construct the full search term using the selected language and framework
+  //   const fullSearchTerm = constructSearchTerm({
+  //     language: selectedLanguage,
+  //     framework: selectedFramework
+  //   });
+
+  //   // Prepare parameters for the search
+  //   const params = {
+  //     searchTerm: fullSearchTerm,
+  //     issueLabels: issueLabels
+  //   };
+  //   console.log("fullQueryParams", params);
+
+  //   // Fetch projects based on preferences
+  //   await this.props.searchRecommendedProjects(params);
+  // };
 
   /**Component state properties */
   state = {
@@ -65,6 +133,10 @@ class Profile extends Component {
     // Here you can use the 'updateUserPreferences' action to save preferences.
     // Assuming updateUserPreferences accepts a preferences object.
     this.props.updateUserPreferences(preferences);
+    fetchRecommendedProjectsUtil(
+      this.props.auth,
+      this.props.searchRecommendedProjects
+    );
   };
 
   // Sort tracked projects
@@ -252,7 +324,9 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   fetchUser,
-  updateUserPreferences
+  updateUserPreferences,
+  searchRecommendedProjects,
+  updateRecommendedProjects
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

@@ -32,9 +32,11 @@ function ProjectCard({ project, projectsTracked }) {
         {project.mentionableUsersCount}
       </div>
       <div className="project-stars">
-        <span className="describer-text">stars: </span>
+        <span className="describer-text">
+          <RiStarSLine className="project-star-icon"/>stars:{" "}
+        </span>
+
         {project.starCount}
-         <RiStarSLine />
       </div>
       {isTracked && <div className="feedback">Project Tracked</div>}
       {/* Add your feedback element here */}

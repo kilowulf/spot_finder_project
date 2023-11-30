@@ -1,15 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.ce71b0ce.css",
-    "main.js": "/static/js/main.fe8ba498.js",
+    "main.css": "/static/css/main.1949ae4d.css",
+    "main.js": "/static/js/main.ad2739a3.js",
     "static/media/spotfinder_logo_large.jpg": "/static/media/spotfinder_logo_large.5b41d0f8e127b3dfe7c5.jpg",
     "static/media/spotfinder_logo_inverse_color_drk_lt.jpg": "/static/media/spotfinder_logo_inverse_color_drk_lt.2d554ed67c2c045d3845.jpg",
+    "static/media/slick.svg": "/static/media/slick.2630a3e3eab21c607e21.svg",
+    "static/media/slick.eot": "/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/index.html",
-    "main.ce71b0ce.css.map": "/static/css/main.ce71b0ce.css.map",
-    "main.fe8ba498.js.map": "/static/js/main.fe8ba498.js.map"
+    "main.1949ae4d.css.map": "/static/css/main.1949ae4d.css.map",
+    "main.ad2739a3.js.map": "/static/js/main.ad2739a3.js.map"
   },
   "entrypoints": [
-    "static/css/main.ce71b0ce.css",
-    "static/js/main.fe8ba498.js"
+    "static/css/main.1949ae4d.css",
+    "static/js/main.ad2739a3.js"
   ]
 }

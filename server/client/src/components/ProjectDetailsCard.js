@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useParams, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { trackProject, fetchUser } from "../actions";
 import { connect } from "react-redux";
 import { RiStarSLine } from "react-icons/ri";
 
 function ProjectDetailsCard() {
   const { projectId } = useParams();
-
+  const location = useLocation();
   const dispatch = useDispatch();
   const auth = useSelector(state => state.auth);
+  let project = location.state?.project;
+
 
   // state for a handling toggle functionality
   const [issuesListVisible, setIssuesListVisible] = useState(false);
@@ -24,7 +25,10 @@ function ProjectDetailsCard() {
   const searchResults = useSelector(state => state.searchResults);
 
   // Find the project from the search results based on the projectId
-  const project = searchResults.find(result => result.id === projectId);
+  if (!project) {
+    project = searchResults.find(result => result.id === projectId);
+  }
+  
   console.log("project from projectDetailsCard: ", project);
 
   // Determine if project is already tracked
@@ -109,9 +113,10 @@ function ProjectDetailsCard() {
 
       <div className="project-star-count">
         <p>
-          <span className="describer-text">Stars: </span>
+          <span className="describer-text">
+            <RiStarSLine className="project-star-icon" />Stars:{" "}
+          </span>
           {project.starCount}
-          <RiStarSLine />
         </p>
       </div>
 

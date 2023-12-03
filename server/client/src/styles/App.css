@@ -121,6 +121,10 @@
   line-height: 1.4;
 }
 
+.profile-details h3 {
+  font-weight: 600;
+}
+
 .profile-details a {
   color: #0366d6;
   text-decoration: none;
@@ -179,7 +183,7 @@
 .user-preferences-header {
   font-size: 20px;
   margin-bottom: 16px;
-  font-weight: 600;
+  font-weight: 700;
   border-bottom: 1px solid #e1e4e8;
   padding-bottom: 10px;
 }
@@ -259,6 +263,10 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px; /* Spacing below the sorting options */
+}
+
+.sort-options h2 {
+  font-weight: 600;
 }
 
 /* Style for the select element */
@@ -403,6 +411,7 @@
 .landing-header h1 {
   font-size: 2.5em;
   margin-bottom: 10px;
+  font-weight: 600;
 }
 
 /* Sections */
@@ -436,6 +445,10 @@
   border-radius: 5px;
   padding: 20px;
   margin-top: 20px;
+}
+
+.recommended-projects h3 {
+  font-weight: 600;
 }
 
 .recommended-projects div:last-child {
@@ -550,7 +563,12 @@
   border-radius: 5px;
 }
 .search-params-container h3 {
-  margin-left: 13px;
+  margin-left: 9px;
+  font-weight: 600;
+}
+
+.search-params-container h4 {
+  margin-left: 9px;
 }
 
 .search-params {
@@ -639,6 +657,7 @@
 .search-sort h3 {
   flex: 1;
   margin-left: 15px;
+  font-weight: 600;
 }
 
 .search-sort select,
@@ -1091,4 +1110,109 @@
 .bot-message-container .message-header {
   text-align: left;
   padding-left: 8px;
+}
+
+/* HelpPage:*/
+
+/* HelpSearchBar:*/
+.help-searchbar-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
+    sans-serif, Apple Color Emoji, Segoe UI Emoji;
+}
+
+.help-main-header {
+  color: #24292e; /* GitHub's text color */
+  text-align: center;
+}
+
+.help-searchbar-container input {
+  width: 100%;
+  padding: 8px 15px;
+  margin: 10px 0;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+}
+
+.suggestions-dropdown {
+  display: grid;
+  /* grid-template-columns: repeat(
+    auto-fill,
+    minmax(200px, 1fr)
+  ); Reduced min width */
+  gap: 5px; /* Reduced gap */
+  background-color: #fafbfc;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  padding: 5px; /* Reduced padding */
+}
+
+.suggestion-item {
+  background-color: white;
+  border: 1px solid #d1d5da;
+  padding: 8px; /* Adjusted padding */
+  border-radius: 6px;
+  transition: box-shadow 0.2s ease;
+  cursor: grab;
+}
+
+.suggestion-item:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.suggestion-item strong {
+  color: #0366d6; /* GitHub's link color */
+}
+
+/* HelpFAQItem: styling */
+.help-faq-item-container {
+  background-color: white;
+  border: 1px solid #d1d5da;
+  padding: 8px; /* Adjusted padding */
+  border-radius: 6px;
+  transition: box-shadow 0.2s ease;
+  margin-bottom: 10px;
+  cursor: grab;
+}
+
+/* HelpFAQList: styling */
+.help-faq-list-container {
+  display: contents;
+  /* grid-template-columns: repeat(
+    auto-fill,
+    minmax(200px, 1fr)
+  ); Adjusted for smaller columns */
+  gap: 5px; /* Reduced gap */
+  background-color: #fafbfc;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  padding: 5px; /* Reduced padding */
+}
+
+/*HelpCategoryList: */
+.help-category-list-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px; /* Reduced gap */
+  background-color: #fafbfc;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  padding: 10px; /* Reduced padding */
+  margin-bottom: 20px;
+}
+
+.help-category-item {
+  background-color: white;
+  border: 1px solid #d1d5da;
+  padding: 8px; /* Adjusted padding */
+  border-radius: 6px;
+  transition: box-shadow 0.2s ease;
+  margin-bottom: 10px;
+  font-weight: 600;
+  cursor: grab;
+  justify-content: center;
+  text-align: center;
 }

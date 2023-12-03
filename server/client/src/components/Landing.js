@@ -20,7 +20,8 @@ const Landing = () => {
           <h2>Open Source Glossary</h2>
           <p>
             Dive into the common terms, tags, and parlance in open source
-            projects hosted on GitHub. <Link to="/wiki">Explore our Wiki</Link>
+            projects hosted on GitHub.{" "}
+            <Link to="/help-page">Explore our Wiki</Link>
           </p>
         </section>
 

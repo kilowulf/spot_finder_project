@@ -1,4 +1,6 @@
 // Rendering layer control: React Router service
+import client from "../apolloClient"
+import { ApolloProvider } from "@apollo/client";
 import React, { Component } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Header from "./Header";
@@ -7,6 +9,8 @@ import Profile from "./Profile";
 import SearchPage from "./SearchPage";
 import ProjectDetailsCard from "./ProjectDetailsCard";
 import Chatbot from "./Chatbot";
+import HelpPage from "./HelpPage";
+import { HelpProvider} from "../utils/helpContext"
 import {fetchRecommendedProjectsUtil} from "../utils/fetchRecommendedProjectsUtil";
 // connect allows components to call action creators
 import { connect } from "react-redux";
@@ -34,6 +38,8 @@ class App extends Component {
   }
   render() {
     return (
+      <ApolloProvider client={client}>
+        <HelpProvider>
       <div className="container">
         <BrowserRouter>
           <div>
@@ -56,9 +62,12 @@ class App extends Component {
                 />}
             />
             <Chatbot username={this.props.username} />
+            <Route exact path="/help-page" component={HelpPage} />
           </div>
         </BrowserRouter>
       </div>
+      </HelpProvider>
+      </ApolloProvider>
     );
   }
 }

@@ -25,64 +25,7 @@ class Profile extends Component {
         this.props.searchRecommendedProjects
       );
     });
-  }
-
-  // fetch recommended projects
-  // fetchRecommendedProjects = async () => {
-  //   // Extract user preferences
-  //   // const { experienceLevel, languages, frameworks } = this.state;
-  //   const userExperienceLevel = this.props.auth.experienceLevel;
-  //   const userFrameworks = this.props.auth.frameworks;
-  //   const userLanguages = this.props.auth.languages;
-  //   console.log("state object", userExperienceLevel);
-
-  //   if (!userLanguages || !userFrameworks || !userExperienceLevel) {
-  //     console.error("Missing user data for fetching recommended projects.");
-  //     return;
-  //   }
-
-  //   // Randomly select preferences ensuring compatibility
-  //   const selectedLanguage =
-  //     userLanguages[Math.floor(Math.random() * userLanguages.length)];
-  //   const selectedFramework =
-  //     userFrameworks[Math.floor(Math.random() * userFrameworks.length)];
-
-  //   // set issueLabels by experience level
-  //   let issueLabels = [];
-  //   if (userExperienceLevel === "Beginner") {
-  //     issueLabels = ["good first issue"];
-  //   } else if (userExperienceLevel === "Experienced") {
-  //     const labels = ["help wanted", "Bug", "Effort: Casual"];
-  //     issueLabels = [labels[Math.ceil(Math.random() * labels.length)]];
-  //   } else if (userExperienceLevel === "Professional") {
-  //     const labels = [
-  //       "Design Limitation",
-  //       "Suggestion",
-  //       "Possible Improvement",
-  //       "Experimentation Needed"
-  //     ];
-  //     issueLabels = [labels[Math.ceil(Math.random() * labels.length)]];
-  //   }
-  //   // Construct search query
-  //   console.log("issueLabels: ", issueLabels);
-  //   console.log("selectedLanguage", selectedLanguage);
-  //   console.log("selectedFramework", selectedFramework);
-  //   // Construct the full search term using the selected language and framework
-  //   const fullSearchTerm = constructSearchTerm({
-  //     language: selectedLanguage,
-  //     framework: selectedFramework
-  //   });
-
-  //   // Prepare parameters for the search
-  //   const params = {
-  //     searchTerm: fullSearchTerm,
-  //     issueLabels: issueLabels
-  //   };
-  //   console.log("fullQueryParams", params);
-
-  //   // Fetch projects based on preferences
-  //   await this.props.searchRecommendedProjects(params);
-  // };
+  } 
 
   /**Component state properties */
   state = {
@@ -187,7 +130,7 @@ class Profile extends Component {
             <option value="" disabled>
               Choose a field
             </option>
-            <option value="createdAt">Created At</option>
+            <option value="createdAt">Created</option>
             <option value="latestMergedPR">Last Pull Request Date</option>
             <option value="mentionableUsersCount">
               Number of Contributors

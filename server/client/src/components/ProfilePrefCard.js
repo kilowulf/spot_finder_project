@@ -112,6 +112,56 @@ class ProfilePrefCard extends Component {
                 />{" "}
                 Ruby
               </label>
+              <label>
+                <input
+                  type="checkbox"
+                  name="languages"
+                  value="c++"
+                  checked={this.state.languages.includes("c++")}
+                  onChange={this.handlePreferenceChange}
+                />{" "}
+                C++
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  name="languages"
+                  value="c#"
+                  checked={this.state.languages.includes("c#")}
+                  onChange={this.handlePreferenceChange}
+                />{" "}
+                C#
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  name="languages"
+                  value="swift"
+                  checked={this.state.languages.includes("swift")}
+                  onChange={this.handlePreferenceChange}
+                />{" "}
+                Swift
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  name="languages"
+                  value="java"
+                  checked={this.state.languages.includes("java")}
+                  onChange={this.handlePreferenceChange}
+                />{" "}
+                Java
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  name="languages"
+                  value="golang"
+                  checked={this.state.languages.includes("golang")}
+                  onChange={this.handlePreferenceChange}
+                />{" "}
+                Golang
+              </label>
             </div>
 
             <div>
@@ -145,6 +195,76 @@ class ProfilePrefCard extends Component {
                   onChange={this.handlePreferenceChange}
                 />{" "}
                 Angular
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  name="frameworks"
+                  value="openframeworks"
+                  checked={this.state.frameworks.includes("openframeworks")}
+                  onChange={this.handlePreferenceChange}
+                />{" "}
+                OpenFrameworks
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  name="frameworks"
+                  value="entity framework core"
+                  checked={this.state.frameworks.includes("entity framework core")}
+                  onChange={this.handlePreferenceChange}
+                />{" "}
+                Entity Framework Core
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  name="frameworks"
+                  value="laravel"
+                  checked={this.state.frameworks.includes("laravel")}
+                  onChange={this.handlePreferenceChange}
+                />{" "}
+                Laravel
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  name="frameworks"
+                  value="flask"
+                  checked={this.state.frameworks.includes("flask")}
+                  onChange={this.handlePreferenceChange}
+                />{" "}
+                Flask
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  name="frameworks"
+                  value="spring"
+                  checked={this.state.frameworks.includes("spring")}
+                  onChange={this.handlePreferenceChange}
+                />{" "}
+                Spring
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  name="frameworks"
+                  value="nextjs"
+                  checked={this.state.frameworks.includes("nextjs")}
+                  onChange={this.handlePreferenceChange}
+                />{" "}
+                NextJs
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  name="frameworks"
+                  value="gin"
+                  checked={this.state.frameworks.includes("gin")}
+                  onChange={this.handlePreferenceChange}
+                />{" "}
+                Gin
               </label>
             </div>
 

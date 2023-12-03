@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cookieSession = require("cookie-session");
 const passport = require("passport");
 const bodyParser = require("body-parser");
+const graphqlServer = require("./services/faqGraphQlService");
 
 require("dotenv").config();
 
@@ -41,6 +42,14 @@ app.use(
     keys: [process.env.COOKIE_KEY]
   })
 );
+
+// Function to start Apollo Server and apply middleware
+async function startServer() {
+  await graphqlServer.start();
+  graphqlServer.applyMiddleware({ app, path: "/graphql" }); // Specify the path here
+}
+
+startServer();
 
 // set passport to use cookies
 // create passport instance on req object

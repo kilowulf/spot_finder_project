@@ -102,7 +102,8 @@ const SearchPage = ({
       "C#",
       "Rust",
       "Swift",
-      "Java"
+      "Java",
+      "Golang"
     ]);
     setFrameworks([
       "React",
@@ -112,7 +113,8 @@ const SearchPage = ({
       "Spring",
       "Django",
       "Flask",
-      "NextJs"
+      "NextJs",
+      "Gin"
     ]);
   }, []);
 
@@ -173,7 +175,8 @@ const SearchPage = ({
             "Effort: Casual",
             "Suggestion",
             "Possible Improvement",
-            "Experimentation Needed"
+            "Experimentation Needed",
+            "template: bug"
           ].map(label =>
             <div key={label}>
               <input

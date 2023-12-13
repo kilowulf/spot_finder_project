@@ -1,4 +1,5 @@
 const { ApolloServer, gql } = require("apollo-server-express");
+const { InMemoryLRUCache } = require("apollo-server-caching");
 
 // GraphQL schema
 const typeDefs = gql`
@@ -227,6 +228,14 @@ const resolvers = {
 };
 
 // Create and export Apollo Server instance
-const graphqlServer = new ApolloServer({ typeDefs, resolvers });
-
+const graphqlServer = new ApolloServer({
+  typeDefs,
+  resolvers,
+  persistedQueries: {
+    cache: new InMemoryLRUCache({
+      maxSize: 1000000, // Adjust the size according to your needs
+      ttl: 3600000 // Time to live in milliseconds
+    })
+  }
+});
 module.exports = graphqlServer;

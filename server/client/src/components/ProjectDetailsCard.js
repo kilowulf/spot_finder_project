@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { trackProject, fetchUser } from "../actions";
+import { trackProject, untrackProject, fetchUser } from "../actions";
 import { connect } from "react-redux";
 import { RiStarSLine } from "react-icons/ri";
 
@@ -11,6 +11,7 @@ function ProjectDetailsCard() {
   const dispatch = useDispatch();
   const auth = useSelector(state => state.auth);
   let project = location.state?.project;
+  const projectsTracked = useSelector(state => state.auth.projectsTracked);
 
 
   // state for a handling toggle functionality
@@ -32,9 +33,14 @@ function ProjectDetailsCard() {
   console.log("project from projectDetailsCard: ", project);
 
   // Determine if project is already tracked
-  const isTracked = auth.projectsTracked
-    ? auth.projectsTracked.some(p => p.id === projectId)
-    : false;
+  // const isTracked = auth.projectsTracked
+  //   ? auth.projectsTracked.some(p => p.id === projectId)
+  //   : false;
+
+  // Determine if project is already tracked
+  const isTracked = useMemo(() => {
+    return projectsTracked.some(p => p.id === projectId);
+  }, [projectsTracked, projectId]);
 
   // local state tracking of project
   const [localIsTracked, setLocalIsTracked] = useState(false);
@@ -43,16 +49,23 @@ function ProjectDetailsCard() {
     () => {
       setLocalIsTracked(isTracked);
     },
-    [isTracked, projectId]
+    [isTracked]
   );
 
   // handle tracking for project
   const handleTrackProject = () => {
-    if (project && !localIsTracked) {
-      dispatch(trackProject(project)).then(() => {
-        setLocalIsTracked(true);
-        dispatch(fetchUser());
-      });
+    if (project) {
+      if (localIsTracked) {
+        dispatch(untrackProject(project.id)).then(() => {
+          setLocalIsTracked(false);
+          dispatch(fetchUser());
+        });
+      } else {
+        dispatch(trackProject(project)).then(() => {
+          setLocalIsTracked(true);
+          dispatch(fetchUser());
+        });
+      }
     }
   };
 
@@ -192,12 +205,18 @@ function ProjectDetailsCard() {
           </ul>
         </div>}
 
-      {auth &&
+        {auth && (
+        <button onClick={handleTrackProject} className={localIsTracked ? "untrack-button" : "track-button"}>
+          {localIsTracked ? "Untrack Project" : "Track Project"}
+        </button>
+      )}
+
+      {/* {auth &&
         (localIsTracked
           ? <button className="button-disabled" disabled>
               Project Tracked
             </button>
-          : <button onClick={handleTrackProject}>Track Project</button>)}
+          : <button onClick={handleTrackProject}>Track Project</button>)} */}
     </div>
   );
 }

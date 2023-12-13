@@ -517,7 +517,7 @@
 }
 
 .search-container {
-  display: flex;
+  /* display: flex; */
   align-items: center; /* this ensures vertical alignment of the input and button */
   width: 100%; /* optional, to take up full available width */
   padding-top: 20px;
@@ -809,10 +809,13 @@
 .project-container .feedback {
   background-color: rgba(0, 255, 0, 0.1); /* Slight green background */
   padding-left: 20px;
-
   font-weight: bold;
   grid-column: span 3;
 }
+
+/* .feedback-untrack-button {
+
+} */
 
 .project-star-icon {
   padding-bottom: 1px;
@@ -934,14 +937,26 @@
 }
 
 /* GitHub uses rounded edges for buttons */
-.btn {
+/* .btn {
   border-radius: 6px;
-  background-color: #2ea44f; /* Green color for primary actions */
+  background-color: #2ea44f; 
   color: white;
 }
 
 .btn:hover {
   background-color: #2a8f47;
+} */
+
+.project-details .track-button {
+  background-color: green; /* Example color for tracking */
+  color: white;
+  /* Other styling */
+}
+
+.project-details .untrack-button {
+  background-color: rgb(40, 37, 37); /* Example color for untracking */
+  color: white;
+  /* Other styling */
 }
 
 /* Chatbot Modal styling */

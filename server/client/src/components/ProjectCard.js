@@ -1,12 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { RiStarSLine } from "react-icons/ri";
+import { fetchUser, untrackProject } from "../actions";
+import { RiDeleteBinLine } from "react-icons/ri";
+import { useDispatch } from "react-redux";
 
-function ProjectCard({ project, projectsTracked }) {
+const ProjectCard = React.memo(({ project, projectsTracked }) => {
+  const dispatch = useDispatch();
   // check for project in projectsTracked user object
   const isTracked = projectsTracked
     ? projectsTracked.some(p => p.id === project.id)
     : false;
+
+  // Handle untrack project
+  const handleUntrackProject = () => {
+    dispatch(untrackProject(project.id)).then(() => {
+      dispatch(fetchUser()); // Update user data
+    });
+  };
 
   return (
     <div className="project-container">
@@ -33,15 +44,16 @@ function ProjectCard({ project, projectsTracked }) {
       </div>
       <div className="project-stars">
         <span className="describer-text">
-          <RiStarSLine className="project-star-icon"/>stars:{" "}
+          <RiStarSLine className="project-star-icon" />stars:{" "}
         </span>
 
         {project.starCount}
       </div>
       {isTracked && <div className="feedback">Project Tracked</div>}
+
       {/* Add your feedback element here */}
       {/* Add other brief project details you want to display in the search results */}
     </div>
   );
-}
+});
 export default ProjectCard;

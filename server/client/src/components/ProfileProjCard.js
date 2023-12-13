@@ -76,6 +76,12 @@ const ProfileProjCard = ({
               {project.contributingGuidelinesBody || "Not available"}
             </p>
           </div>
+          <div>
+            <span className="describer-text">Project URL: </span>
+            <a href={project.url} target="_blank" rel="noopener noreferrer">
+              {project.url}
+            </a>
+          </div>
           <div className="project-issue-count">
             <p>
               {/* 4. Add an element to trigger the toggle function */}

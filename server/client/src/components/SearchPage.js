@@ -4,7 +4,7 @@ import {
   BiSolidChevronDownSquare
 } from "react-icons/bi";
 import { connect } from "react-redux";
-import { fetchUser, searchProjects, recommendedProjects } from "../actions";
+import { fetchUser, searchProjects } from "../actions";
 import { constructSearchTerm } from "../utils/constructSearchQuery";
 import ProjectCard from "./ProjectCard";
 import Slider from "react-slick";
@@ -203,12 +203,14 @@ const SearchPage = ({
       </div>
       {/* Search Input */}
       <div className="search-container">
-        <input
+        {/* <input
           value={searchTerm}
           onChange={e => setSearchTerm(e.target.value)}
           placeholder="Search Open Source Projects..."
-        />
-        <button onClick={handleSearch}>Search</button>
+        /> */}
+        <button className="search-container" onClick={handleSearch}>
+          Search
+        </button>
       </div>
 
       {/* Search Results Section */}

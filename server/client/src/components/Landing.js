@@ -17,11 +17,11 @@ const Landing = () => {
 
         {/* Wiki Section */}
         <section className="landing-wiki">
-          <h2>Open Source Glossary</h2>
+          <h2>Open Source FAQ's</h2>
           <p>
             Dive into the common terms, tags, and parlance in open source
             projects hosted on GitHub.{" "}
-            <Link to="/help-page">Explore our Wiki</Link>
+            <Link to="/help-page">Explore our FAQ / Help page</Link> and find your way to being a open source contributor.
           </p>
         </section>
 
@@ -30,7 +30,7 @@ const Landing = () => {
           <h2>Find a Project</h2>
           <p>
             Ready to jump into the action?{" "}
-            <Link to="/searchpage">Search for projects</Link> that match your
+            <Link to="/search-page">Search for projects</Link> that match your
             interest and skills.
           </p>
         </section>
@@ -40,8 +40,8 @@ const Landing = () => {
           <h2>Join the Community</h2>
           <p>
             Start your journey with SpotFinder.{" "}
-            <Link to="/signup">Sign up now</Link> or{" "}
-            <Link to="/profile/create">create your profile</Link>.
+            <a href="https://github.com/">Create a Github account</a>   to enjoy
+            the full services of SpotFinder
           </p>
         </section>
 

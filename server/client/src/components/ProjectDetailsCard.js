@@ -11,8 +11,8 @@ function ProjectDetailsCard() {
   const dispatch = useDispatch();
   const auth = useSelector(state => state.auth);
   let project = location.state?.project;
-  const projectsTracked = useSelector(state => state.auth.projectsTracked);
-
+  // Initialize projectsTracked to an empty array if it's undefined
+  const projectsTracked = useSelector(state => state.auth.projectsTracked) || [];
 
   // state for a handling toggle functionality
   const [issuesListVisible, setIssuesListVisible] = useState(false);

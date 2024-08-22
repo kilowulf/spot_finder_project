@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cookieSession = require("cookie-session");
 const passport = require("passport");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const graphqlServer = require("./services/faqGraphQlService");
 
 require("dotenv").config();
@@ -34,6 +35,14 @@ const app = express();
 
 app.use(bodyParser.json());
 // middleware for cookie-session
+// cors
+app.use(
+  cors({
+    origin: ["https://spot-finder-project.vercel.app/"],
+    methods: ["GET,HEAD,PUT,PATCH,POST,DELETE"],
+    credentials: true
+  })
+);
 app.use(
   cookieSession({
     // set duration of cookie milliseconds

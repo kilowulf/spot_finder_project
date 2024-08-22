@@ -1,5 +1,8 @@
 node_modules
 .env
+server/node_modules/
+client/node_modules/node
+server/ .env
 deployment.txt
 config/keys.js
 keys.js

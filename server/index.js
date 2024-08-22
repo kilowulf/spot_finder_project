@@ -34,7 +34,7 @@ db.on("disconnected", () => {
 const app = express();
 
 app.use(bodyParser.json());
-// middleware for cookie-session
+
 // cors
 app.use(
   cors({
@@ -43,6 +43,17 @@ app.use(
     credentials: true
   })
 );
+
+// Adding CSP header middleware
+app.use((req, res, next) => {
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self' data:"
+  );
+  next();
+});
+
+// middleware for cookie-session
 app.use(
   cookieSession({
     // set duration of cookie milliseconds

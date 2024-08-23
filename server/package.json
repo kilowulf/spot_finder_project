@@ -4,8 +4,7 @@
   "description": "Open Source Project Finder utilizing Github API to return tech / experience relevant results.",
   "main": "index.js",
   "engines": {
-    "node": "18.20.4",
-    "npm": "9.6.4"
+    "node": "18"
   },
   "scripts": {
     "start": "node index.js",

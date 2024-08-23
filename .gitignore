@@ -8,3 +8,4 @@ config/keys.js
 keys.js
 config/prod.js
 prod.js
+vecel.json

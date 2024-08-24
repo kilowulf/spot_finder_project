@@ -4,7 +4,7 @@ module.exports = function(app) {
   app.use(
     ["/api", "/auth/github", "/github-search", "/graphql"],
     createProxyMiddleware({
-      target: "http://spot-finder-project-backend.vercel.app"
+      target: "https://spot-finder-project-backend.vercel.app"
     })
   );
 };
